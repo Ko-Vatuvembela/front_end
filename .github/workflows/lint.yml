@@ -1,0 +1,16 @@
+name: Lint Code Base
+
+on: push
+
+jobs:
+  check-eslint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - run: yarn
+      - run: npm install -g eslint
+      - run: eslint  app/**  --ext=.ts --fix
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
