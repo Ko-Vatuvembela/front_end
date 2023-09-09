@@ -17,3 +17,13 @@ export type ButtonType = {
   isActive: boolean;
   hoverColor: string;
 };
+export type LinkType = {
+  text : string;
+  optinalStyle?:string;
+  href : string;
+}
+export type BackgroundImageType = {
+  width:number;
+  height:number;
+  source:string;
+}
