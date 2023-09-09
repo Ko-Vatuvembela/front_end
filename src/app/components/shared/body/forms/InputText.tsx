@@ -1,10 +1,10 @@
 import { InputType } from "@/app/components/types";
 
 export const InputText = ({ name, type, label, placeholder, optinalStyle, isRequired }: InputType) => {
-    const inputStyle = "border border-blue-500 mb-5 mt-1 p-1 rounded-sm";
-    const labelStyle = "text-base text-primaryBlue";
+    const inputStyle = "border-black border rounded-[14px] w-full pl-5 py-[14px]";
+    const labelStyle = "text-primaryBlue text-[14px] font-semibold";
     return (
-        <div className="w-fit">
+        <div className="mb-4">
             <label htmlFor={name} className={labelStyle}>{label}</label><br />
             <input type={type} name={name} placeholder={placeholder} id={name} required={isRequired} className={inputStyle + " " + optinalStyle} />
         </div>
