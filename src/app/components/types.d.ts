@@ -1,3 +1,5 @@
+import {ReactNode} from 'react';
+
 export type InputType = {
     placeholder : string;
     name : string;
@@ -6,6 +8,7 @@ export type InputType = {
     optinalStyle? : string;
     type: "email" | "password" | "text"
 };
+
 export type ButtonType = {
   text: string;
   style?: string;
@@ -26,4 +29,8 @@ export type BackgroundImageType = {
   width:number;
   height:number;
   source:string;
+}
+export type LayoutType = {
+  backgroundImage : string;
+  children :  ReactNode; 
 }

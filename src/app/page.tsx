@@ -1,6 +1,10 @@
-import { IndexPage } from "./public/IndexPage";
-export default function Home() {
+import { IndexPage } from "@/app/public/IndexPage";
+import { LayoutPattern } from "./public/LayoutPattern";
+
+export default function Index() {
   return (
-    <IndexPage />
+    <LayoutPattern backgroundImage="africa" >
+      <IndexPage />
+    </LayoutPattern>
   );
 }
