@@ -1,10 +1,10 @@
-import { PublicHeader } from "../../shared/header/PublicHeader";
-import { InputText } from "../../shared/body/forms/InputText";
-import { Button } from "../../shared/body/forms/Button";
+import { PublicHeader } from "@/app/components/shared/header/PublicHeader";
+import { Button } from "@/app/components/shared/body/forms/Button";
 import Image from "next/image";
-import { Footer } from "../../shared/Footer";
-import { TextLink } from "../../shared/Link";
-import { BackgroundImage } from "../../shared/BackgroundImage";
+import { Footer } from "@/app/components/shared/Footer";
+import { TextLink } from "@/app/components/shared/Link";
+import { BackgroundImage } from "@/app/components/shared/BackgroundImage";
+import { InputText } from "@/app/components/shared/body/forms/InputText";
 
 export const IndexPage = () => {
 
