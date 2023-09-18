@@ -32,5 +32,6 @@ export type BackgroundImageType = {
 }
 export type LayoutType = {
   backgroundImage : string;
+  optionalStyle? : string;
   children :  ReactNode; 
 }

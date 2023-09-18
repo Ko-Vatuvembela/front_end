@@ -6,16 +6,14 @@ import { LayoutType } from '@/app/components/types';
 
 export const LayoutPattern = ({
     children,
-    backgroundImage
+    backgroundImage, optionalStyle
 }: LayoutType) => {
-
-
     return (
-        <>
+        <div className={optionalStyle}>
             <PublicHeader />
             {children}
             <BackgroundImage source={backgroundImage} height={540} width={500} />
             <Footer />
-        </>
+        </div>
     );
 };;
