@@ -19,8 +19,8 @@ export const IndexPage = () => {
                         <InputText label="Password" isRequired={true} name="password" optinalStyle="border-primaryBlue" placeholder="*********" type="password" />
                         <Button text={"Entrar"} style="w-full mt-3" backgroundColor="bg-primaryBlue" isActive={true} textColor="text-white" hoverColor="hover:bg-secondaryBlue" />
                     </form>
-                    <p className="my-3"><TextLink href={'forgotpassword'} optinalStyle="text-primaryBlue" text="Esqueceu a senha ?" /></p>
-                    <p><TextLink href={'signup'} optinalStyle="text-primaryBlue" text="Crie uma conta" /></p>
+                    <p className="my-3"><TextLink href={'public/forgotpassword'} optinalStyle="text-primaryBlue" text="Esqueceu a senha ?" /></p>
+                    <p><TextLink href={'public/signup'} optinalStyle="text-primaryBlue" text="Crie uma conta" /></p>
                 </section>
                 <div className="block">
                     <Image alt="quote" src='/images/quotes.svg' width={imageSize} height={imageSize} />
