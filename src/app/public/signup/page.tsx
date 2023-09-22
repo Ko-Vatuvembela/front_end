@@ -1,9 +1,9 @@
-import { InputText } from "@/app/components/shared/body/forms/InputText";
-import { LayoutPattern } from "../LayoutPattern";
-import { Button } from "@/app/components/shared/body/forms/Button";
-import { TextLink } from "@/app/components/shared/Link";
+import { InputText } from '@/app/components/shared/body/forms/InputText';
+import { LayoutPattern } from '../LayoutPattern';
+import { Button } from '@/app/components/shared/body/forms/Button';
+import { TextLink } from '@/app/components/shared/Link';
 
-export default function signUpPage() {
+export default function signUpPage () {
     return (
         <>
             <LayoutPattern backgroundImage="bubu" optionalStyle="mobile:w-[90%] md:w-[60%] lg:w-[40%]  mx-auto" >
