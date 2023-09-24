@@ -1,10 +1,9 @@
-import { Button } from "@/app/components/shared/body/forms/Button";
-import Image from "next/image";
-import { TextLink } from "@/app/components/shared/Link";
-import { InputText } from "@/app/components/shared/body/forms/InputText";
+import { Button } from '@/app/components/shared/body/forms/Button';
+import Image from 'next/image';
+import { TextLink } from '@/app/components/shared/Link';
+import { InputText } from '@/app/components/shared/body/forms/InputText';
 
 export const IndexPage = () => {
-
     const imageSize = 56;
 
     return (
@@ -17,7 +16,7 @@ export const IndexPage = () => {
                     <form action="" method="post" autoComplete="true" name='login' >
                         <InputText label="Email" isRequired={true} name="email" optinalStyle="border-primaryBlue" placeholder="email@dominio.com" type="email" />
                         <InputText label="Password" isRequired={true} name="password" optinalStyle="border-primaryBlue" placeholder="*********" type="password" />
-                        <Button text={"Entrar"} style="w-full mt-3" backgroundColor="bg-primaryBlue" isActive={true} textColor="text-white" hoverColor="hover:bg-secondaryBlue" />
+                        <Button text={'Entrar'} style="w-full mt-3" backgroundColor="bg-primaryBlue" isActive={true} textColor="text-white" hoverColor="hover:bg-secondaryBlue" />
                     </form>
                     <p className="my-3"><TextLink href={'public/forgotpassword'} optinalStyle="text-primaryBlue" text="Esqueceu a senha ?" /></p>
                     <p><TextLink href={'public/signup'} optinalStyle="text-primaryBlue" text="Crie uma conta" /></p>
@@ -33,4 +32,4 @@ export const IndexPage = () => {
             </div>
         </>
     );
-};;
+}; ;
