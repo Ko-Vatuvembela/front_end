@@ -10,3 +10,6 @@ export const getHeaders = (): Headers => {
 	}
 	return headers;
 };
+export function capitalize(e: string) {
+	return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
+}
