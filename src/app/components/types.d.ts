@@ -4,6 +4,7 @@ import { type ReactNode } from 'react';
 export interface InputType {
 	placeholder: string;
 	name: string;
+	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 	label: string;
 	isRequired: boolean;
 	optinalStyle?: string;

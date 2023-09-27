@@ -13,7 +13,6 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
-    "axios": "^1.5.0",
     "eslint": "^8.0.1",
     "eslint-config-next": "13.4.19",
     "next": "13.4.19",
@@ -24,7 +23,6 @@
     "typescript": "*"
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard-with-typescript": "^39.0.0",

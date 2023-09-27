@@ -1,40 +1,42 @@
-import axios from 'axios';
-import SessionProvider from './session';
+import { getHeaders } from '../components/shared/resources';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-const session = new SessionProvider();
-const axiosRequest = axios.create({
-	baseURL: BASE_URL,
-});
-
-axiosRequest.interceptors.request.use(
-	async (config) => {
-		const retSession = await session.getSession();
-		if (retSession?.token) {
-			config.headers.Authorization = `Bearer ${retSession.token}`;
-			config.headers['Content-Type'] = 'application/json';
-		}
-		return config;
-	},
-	async (error) => {
-		return await Promise.reject(error);
-	}
-);
 
 export default class FetchRequest {
-	async post (url: string, data: any) {
-		return await axiosRequest.post(url, data);
+	async post(url: string, data: object) {
+		const headers = getHeaders();
+		return await fetch(BASE_URL + url, {
+			method: 'POST',
+			body: JSON.stringify(data),
+			headers,
+		});
 	}
 
-	async put (url: string, id: number, data: any) {
-		return await axiosRequest.put(`${url}/${id}`, data);
+	async put(url: string, id: number, data: any) {
+		const headers = getHeaders();
+
+		return await fetch(`${BASE_URL + url}/${id}`, {
+			body: JSON.stringify(data),
+			headers,
+			method: 'PUT',
+		});
 	}
 
-	async delete (url: string, id: number) {
-		return await axiosRequest.delete(`${url}/${id}`);
+	async delete(url: string, id: number) {
+		const headers = getHeaders();
+
+		return await fetch(`${BASE_URL + url}/${id}`, {
+			headers,
+			method: 'DELETE',
+		});
 	}
 
-	async get (url: string) {
-		return await axiosRequest.get(url);
+	async get(url: string) {
+		const headers = getHeaders();
+
+		return await fetch(BASE_URL + url, {
+			headers,
+			method: 'GET',
+		});
 	}
 }
