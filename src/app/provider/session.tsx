@@ -1,23 +1,23 @@
 import { type UserType, type SessionType } from '../components/types';
 
 export default class SessionProvider {
-	setToken(tokens: string) {
+	setToken (tokens: string) {
 		sessionStorage.setItem('token', tokens);
 	}
 
-	setUserData(userData: UserType) {
+	setUserData (userData: UserType) {
 		sessionStorage.setItem('userData', JSON.stringify(userData));
 	}
 
-	updateUserData(updateData: UserType) {
+	updateUserData (updateData: UserType) {
 		sessionStorage.setItem('userData', JSON.stringify(updateData));
 	}
 
-	static getToken() {
+	static getToken () {
 		return sessionStorage.getItem('token');
 	}
 
-	getSession() {
+	getSession () {
 		if (typeof sessionStorage !== 'undefined') {
 			const token = sessionStorage.getItem('token');
 			const session: SessionType = {
@@ -29,11 +29,11 @@ export default class SessionProvider {
 		return undefined;
 	}
 
-	deleteSession() {
+	deleteSession () {
 		sessionStorage.clear();
 	}
 
-	isAuthenticated(): boolean {
+	isAuthenticated (): boolean {
 		return this.getSession() !== undefined;
 	}
 }

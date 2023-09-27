@@ -4,7 +4,7 @@ import SessionProvider from './app/provider/session';
 
 const session = new SessionProvider();
 
-export function middleware(request: NextRequest) {
+export function middleware (request: NextRequest) {
 	const url = request.nextUrl.clone();
 	if (!session.isAuthenticated()) {
 		if (request.nextUrl.pathname.startsWith('/signed')) {
