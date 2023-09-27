@@ -17,7 +17,7 @@ export default class SessionProvider {
 		return sessionStorage.getItem('token');
 	}
 
-	async getSession (): Promise<SessionType | undefined> {
+	getSession () {
 		if (typeof sessionStorage !== 'undefined') {
 			const token = sessionStorage.getItem('token');
 			const session: SessionType = {
@@ -26,9 +26,14 @@ export default class SessionProvider {
 			};
 			return JSON.parse(JSON.stringify(session));
 		}
+		return undefined;
 	}
 
-	async deleteSession () {
+	deleteSession () {
 		sessionStorage.clear();
+	}
+
+	isAuthenticated (): boolean {
+		return this.getSession() !== undefined;
 	}
 }
