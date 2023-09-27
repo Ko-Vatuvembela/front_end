@@ -10,7 +10,7 @@ import { capitalize } from '@/app/components/shared/resources';
 
 const fetchRequest = new FetchRequest();
 
-export default function SignUpPage() {
+export default function SignUpPage () {
 	const [nome, updateNome] = useState<string>('');
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [sobrenome, updateSobrenome] = useState<string>('');

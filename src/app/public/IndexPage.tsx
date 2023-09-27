@@ -6,7 +6,6 @@ import { TextLink } from '@/app/components/shared/Link';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
 import FetchRequest from '@/app/provider/api';
 import SessionProvider from '../provider/session';
-import { capitalize } from '@/app/components/shared/resources';
 
 const fetchRequest = new FetchRequest();
 const session = new SessionProvider();
