@@ -6,12 +6,14 @@ import { TextLink } from '@/app/components/shared/Link';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
 import FetchRequest from '@/app/provider/api';
 import SessionProvider from '../provider/session';
+import { capitalize } from '@/app/components/shared/resources';
 
 const fetchRequest = new FetchRequest();
 const session = new SessionProvider();
 
 export const IndexPage = () => {
 	const [email, updateEmail] = useState<string>();
+	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [errorMessage, updateErrorMessage] = useState<string>();
 	const [password, updatePassword] = useState<string>();
 
@@ -19,7 +21,9 @@ export const IndexPage = () => {
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const data = { email, password };
+		setStyle('');
 		const request = await fetchRequest.post('auth/login', data);
+		setStyle('hidden');
 		if (request.status === 401) {
 			updateErrorMessage('Usuário e/ou senha inválidos !!');
 		} else if (request.status === 200) {
@@ -83,6 +87,13 @@ export const IndexPage = () => {
 							<p className=" text-red-700 my-2">{errorMessage}</p>
 						)}
 					</form>
+					<Image
+						alt="Background Image"
+						src={'/images/loading.svg'}
+						width={128}
+						height={128}
+						className={loadingStyle}
+					/>
 					<p className="my-3">
 						<TextLink
 							href={'public/forgotpassword'}
