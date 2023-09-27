@@ -24,8 +24,9 @@ export const IndexPage = () => {
 			updateErrorMessage('Usuário e/ou senha inválidos !!');
 		} else if (request.status === 200) {
 			updateErrorMessage('');
-			const response = await request.json();
-			session.setToken(response.token);
+			const { token, user } = await request.json();
+			session.setToken(token);
+			session.setUserData(user);
 			// REdirect to home user
 		}
 	};
