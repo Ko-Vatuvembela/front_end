@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 'use client';
 import { type FormEvent, useState } from 'react';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
@@ -7,10 +8,12 @@ import { TextLink } from '@/app/components/shared/Link';
 import FetchRequest from '@/app/provider/api';
 import Image from 'next/image';
 import { capitalize } from '@/app/components/shared/resources';
+import { redirect } from 'next/navigation';
+import { RedirectType } from 'next/dist/client/components/redirect';
 
 const fetchRequest = new FetchRequest();
 
-export default function SignUpPage () {
+export default function SignUpPage() {
 	const [nome, updateNome] = useState<string>('');
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [sobrenome, updateSobrenome] = useState<string>('');
@@ -32,6 +35,9 @@ export default function SignUpPage () {
 				updateErrorMessage(`O email ${email} já existe.`);
 			} else if (request.status === 500) {
 				// INTERNAL SERVER
+			} else if (request.status === 201) {
+				localStorage.setItem('email', email);
+				redirect('/public/verify', RedirectType.replace);
 			}
 		} else {
 			updateErrorMessage(
