@@ -1,7 +1,7 @@
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 import { TextLink } from '@/app/components/shared/Link';
 
-export default function NotFound() {
+export default function NotFound () {
 	return (
 		<LayoutPattern backgroundImage="bubu">
 			<div className="text-center text-primaryBlue">

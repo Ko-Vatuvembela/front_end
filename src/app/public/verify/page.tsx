@@ -10,7 +10,7 @@ import { sendMail } from '@/app/components/shared/resources';
 import { RedirectType } from 'next/dist/client/components/redirect';
 import { redirect } from 'next/navigation';
 
-export default function VerifyPage() {
+export default function VerifyPage () {
 	const email = localStorage.getItem('email');
 	const [errorMessage, updateErrorMessage] = useState<string>('');
 

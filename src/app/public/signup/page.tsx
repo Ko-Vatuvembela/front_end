@@ -13,7 +13,7 @@ import { RedirectType } from 'next/dist/client/components/redirect';
 
 const fetchRequest = new FetchRequest();
 
-export default function SignUpPage() {
+export default function SignUpPage () {
 	const [nome, updateNome] = useState<string>('');
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [sobrenome, updateSobrenome] = useState<string>('');
