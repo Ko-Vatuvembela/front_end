@@ -8,12 +8,12 @@ import { TextLink } from '@/app/components/shared/Link';
 import FetchRequest from '@/app/provider/api';
 import Image from 'next/image';
 import { capitalize } from '@/app/components/shared/resources';
-import { redirect } from 'next/navigation';
-import { RedirectType } from 'next/dist/client/components/redirect';
+import { useRouter } from 'next/navigation';
 
 const fetchRequest = new FetchRequest();
 
-export default function SignUpPage () {
+export default function SignUpPage() {
+	const router = useRouter();
 	const [nome, updateNome] = useState<string>('');
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [sobrenome, updateSobrenome] = useState<string>('');
@@ -31,13 +31,17 @@ export default function SignUpPage () {
 			setStyle('');
 			const request = await fetchRequest.post('public/user', data);
 			setStyle('hidden');
-			if (request.status === 409) {
-				updateErrorMessage(`O email ${email} já existe.`);
-			} else if (request.status === 500) {
-				// INTERNAL SERVER
-			} else if (request.status === 201) {
-				localStorage.setItem('email', email);
-				redirect('/public/verify', RedirectType.replace);
+			if (request) {
+				if (request.status === 409) {
+					updateErrorMessage(`O email ${email} já existe.`);
+				} else if (request.status === 500) {
+					router.replace('/error/500');
+				} else if (request.status === 201) {
+					localStorage.setItem('email', email);
+					router.replace('/public/verify');
+				}
+			} else {
+				router.replace('/error/connection');
 			}
 		} else {
 			updateErrorMessage(
