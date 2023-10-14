@@ -20,6 +20,7 @@ export default function SignUpPage() {
 	const [email, updateEmail] = useState<string>('');
 	const [password, updatePassword] = useState<string>('');
 	const [errorMessage, updateErrorMessage] = useState<string>('');
+	const [errorMessageStyle, updateErrorMessageStyle] = useState<string>('');
 	const [confirmPassword, updateConfirmPassword] = useState<string>('');
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -33,12 +34,18 @@ export default function SignUpPage() {
 			setStyle('hidden');
 			if (request) {
 				if (request.status === 409) {
+					updateErrorMessageStyle('text-red-700 my-2');
 					updateErrorMessage(`O email ${email} já existe.`);
 				} else if (request.status === 500) {
 					router.replace('/error/500');
 				} else if (request.status === 201) {
-					localStorage.setItem('email', email);
-					router.replace('/public/verify');
+					updateErrorMessageStyle('text-green-700 my-2');
+					updateErrorMessage(
+						`Será enviado um email de confirmação para ${email}. Pode realizar o login para confirmar a conta.`
+					);
+					setTimeout(() => {
+						router.replace('/');
+					}, 7 * 1000);
 				}
 			} else {
 				router.replace('/error/connection');
@@ -124,7 +131,7 @@ export default function SignUpPage() {
 						hoverColor="hover:bg-secondaryBlue"
 					/>
 					{errorMessage && (
-						<p className=" text-red-700 my-2">{errorMessage}</p>
+						<p className={errorMessageStyle}>{errorMessage}</p>
 					)}
 				</form>
 				<Image
