@@ -1,8 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const roboto = Roboto({
+	style: ['normal', 'italic'],
+	weight: ['100', '300', '400', '500', '700', '900'],
+	subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
 	title: 'Ko Vatuvembela',
@@ -17,7 +21,7 @@ export default function RootLayout ({
 }) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className={roboto.className}>
 				<div className="mx-auto max-w-7xl">{children}</div>
 			</body>
 		</html>

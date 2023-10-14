@@ -43,6 +43,7 @@ export interface UserType {
 	sobrenome: string;
 	email: string;
 	foto: string;
+	ativada: boolean;
 	uid: number;
 }
 export interface SessionType {
