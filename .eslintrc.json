@@ -29,6 +29,7 @@
       "@typescript-eslint/member-delimiter-style ":"off",
       "@typescript-eslint/no-unused-expressions":"off",
       "@typescript-eslint/no-misused-promises":"off",
+      "@typescript-eslint/no-floating-promises":"off",
       "indent":"off"
     }
 }

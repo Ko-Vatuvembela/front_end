@@ -6,7 +6,7 @@ import { TextLink } from '@/app/components/shared/Link';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
 import FetchRequest from '@/app/provider/api';
 import SessionProvider from '../provider/session';
-
+import { useRouter } from 'next/navigation';
 const fetchRequest = new FetchRequest();
 const session = new SessionProvider();
 
@@ -15,6 +15,7 @@ export const IndexPage = () => {
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [errorMessage, updateErrorMessage] = useState<string>();
 	const [password, updatePassword] = useState<string>();
+	const router = useRouter();
 
 	const imageSize = 56;
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -23,14 +24,18 @@ export const IndexPage = () => {
 		setStyle('');
 		const request = await fetchRequest.post('auth/login', data);
 		setStyle('hidden');
-		if (request.status === 401) {
-			updateErrorMessage('Usuário e/ou senha inválidos !!');
-		} else if (request.status === 200) {
-			updateErrorMessage('');
-			const { token, user } = await request.json();
-			session.setToken(token);
-			session.setUserData(user);
-			// REdirect to home user
+		if (request) {
+			if (request.status === 401) {
+				updateErrorMessage('Usuário e/ou senha inválidos !!');
+			} else if (request.status === 200) {
+				updateErrorMessage('');
+				const { token, user } = await request.json();
+				session.setToken(token);
+				session.setUserData(user);
+				// REdirect to home user
+			}
+		} else {
+			router.replace('/error/connection');
 		}
 	};
 
