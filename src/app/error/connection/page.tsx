@@ -2,7 +2,7 @@ import { LayoutPattern } from '@/app/public/LayoutPattern';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function ConnectionError () {
+export default function ConnectionError() {
 	return (
 		<LayoutPattern backgroundImage="bubu">
 			<div className="text-center text-primaryBlue mx-auto w-[80%]">
@@ -18,8 +18,8 @@ export default function ConnectionError () {
 				<h1 className=" text-4xl my-8 font-light text-justify">
 					Erro de conexão com o servidor, não foi possível se conectar
 					ao servidor de dados.{' '}
-					<Link href={'#'} className="hover:underline">
-						Tentar de novo
+					<Link href={'/'} className="hover:underline">
+						Retornar à pagina principal
 					</Link>
 				</h1>
 			</div>
