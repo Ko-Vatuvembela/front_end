@@ -1,11 +1,12 @@
 'use client';
 import { Button } from '@/app/components/shared/body/forms/Button';
 import Image from 'next/image';
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, useEffect } from 'react';
 import { TextLink } from '@/app/components/shared/Link';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
 import FetchRequest from '@/app/provider/api';
-import SessionProvider from '../provider/session';
+import SessionProvider from '@/app/provider/session';
+import { signedURL } from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
 const fetchRequest = new FetchRequest();
 const session = new SessionProvider();
@@ -18,6 +19,12 @@ export const IndexPage = () => {
 	const router = useRouter();
 
 	const imageSize = 56;
+
+	/* Verify if the login was made */
+	useEffect(() => {
+		if (session.isAuthenticated()) router.push(signedURL);
+	}, []);
+
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const data = { email, password };
@@ -32,7 +39,7 @@ export const IndexPage = () => {
 				const { token, user } = await request.json();
 				session.setToken(token);
 				session.setUserData(user);
-				// REdirect to home user
+				router.push(signedURL);
 			}
 		} else {
 			router.replace('/error/connection');

@@ -1,24 +1,44 @@
 import { type UserType, type SessionType } from '../components/types';
 
 export default class SessionProvider {
-	setToken (tokens: string) {
+	setToken(tokens: string) {
 		sessionStorage.setItem('token', tokens);
 	}
 
-	setUserData (userData: UserType) {
+	isSession() {
+		try {
+			return sessionStorage.length > 0;
+		} catch (e) {
+			return false;
+		}
+	}
+
+	setUserData(userData: UserType) {
 		sessionStorage.setItem('userData', JSON.stringify(userData));
 	}
 
-	updateUserData (updateData: UserType) {
-		sessionStorage.setItem('userData', JSON.stringify(updateData));
+	getUserData() {
+		if (this.isSession()) {
+			return JSON.parse(sessionStorage.getItem('userData') as string);
+		}
+		return false;
 	}
 
-	static getToken () {
-		return sessionStorage.getItem('token');
+	updateUserData(updateData: UserType) {
+		if (this.isSession()) {
+			sessionStorage.setItem('userData', JSON.stringify(updateData));
+		}
 	}
 
-	getSession () {
-		if (typeof sessionStorage !== 'undefined') {
+	getToken() {
+		if (this.isSession()) {
+			return sessionStorage.getItem('token');
+		}
+		return false;
+	}
+
+	getSession() {
+		if (this.isSession()) {
 			const token = sessionStorage.getItem('token');
 			const session: SessionType = {
 				token: token as string,
@@ -26,14 +46,14 @@ export default class SessionProvider {
 			};
 			return JSON.parse(JSON.stringify(session));
 		}
-		return undefined;
+		return false;
 	}
 
-	deleteSession () {
+	deleteSession() {
 		sessionStorage.clear();
 	}
 
-	isAuthenticated (): boolean {
-		return this.getSession() !== undefined;
+	isAuthenticated(): boolean {
+		return this.isSession();
 	}
 }
