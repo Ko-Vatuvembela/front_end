@@ -7,6 +7,7 @@ import { Button } from '@/app/components/shared/body/forms/Button';
 import { TextLink } from '@/app/components/shared/Link';
 import FetchRequest from '@/app/provider/api';
 import Image from 'next/image';
+import SessionProvider from '@/app/provider/session';
 import { capitalize } from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
 
@@ -43,6 +44,8 @@ export default function SignUpPage() {
 					updateErrorMessage(
 						`Será enviado um email de confirmação para ${email}. Pode realizar o login para confirmar a conta.`
 					);
+					const session = new SessionProvider();
+					session.setUserData(await request.json());
 					setTimeout(() => {
 						router.replace('/');
 					}, 7 * 1000);
