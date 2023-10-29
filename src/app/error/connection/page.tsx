@@ -2,7 +2,7 @@ import { LayoutPattern } from '@/app/public/LayoutPattern';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function ConnectionError() {
+export default function ConnectionError () {
 	return (
 		<LayoutPattern backgroundImage="bubu">
 			<div className="text-center text-primaryBlue mx-auto w-[80%]">

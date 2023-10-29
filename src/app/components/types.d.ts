@@ -44,6 +44,7 @@ export interface UserType {
 	email: string;
 	foto: string;
 	ativada: boolean;
+	token?: string;
 	uid: number;
 }
 export interface SessionType {

@@ -1,11 +1,11 @@
-import { type UserType, type SessionType } from '../components/types';
+import { type UserType } from '../components/types';
 
 export default class SessionProvider {
-	setToken(tokens: string) {
+	setToken(tokens: string): void {
 		sessionStorage.setItem('token', tokens);
 	}
 
-	isSession() {
+	isSession(): boolean {
 		try {
 			return sessionStorage.length > 0;
 		} catch (e) {
@@ -13,43 +13,26 @@ export default class SessionProvider {
 		}
 	}
 
-	setUserData(userData: UserType) {
+	setUserData(userData: UserType): void {
 		sessionStorage.setItem('userData', JSON.stringify(userData));
 	}
 
-	getUserData() {
+	getUserData(): UserType | null {
 		if (this.isSession()) {
-			return JSON.parse(sessionStorage.getItem('userData') as string);
+			return Object(
+				JSON.parse(sessionStorage.getItem('userData') as string)
+			) as UserType;
 		}
-		return false;
+		return null;
 	}
 
-	updateUserData(updateData: UserType) {
+	updateUserData(updateData: UserType): void {
 		if (this.isSession()) {
 			sessionStorage.setItem('userData', JSON.stringify(updateData));
 		}
 	}
 
-	getToken() {
-		if (this.isSession()) {
-			return sessionStorage.getItem('token');
-		}
-		return false;
-	}
-
-	getSession() {
-		if (this.isSession()) {
-			const token = sessionStorage.getItem('token');
-			const session: SessionType = {
-				token: token as string,
-				data: new Date(),
-			};
-			return JSON.parse(JSON.stringify(session));
-		}
-		return false;
-	}
-
-	deleteSession() {
+	deleteSession(): void {
 		sessionStorage.clear();
 	}
 
