@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 
 const fetchRequest = new FetchRequest();
 
-export default function SignUpPage () {
+export default function SignUpPage() {
 	const router = useRouter();
 	const [nome, updateNome] = useState<string>('');
 	const [loadingStyle, setStyle] = useState<string>('hidden');
@@ -44,8 +44,6 @@ export default function SignUpPage () {
 					updateErrorMessage(
 						`Será enviado um email de confirmação para ${email}. Pode realizar o login para confirmar a conta.`
 					);
-					const session = new SessionProvider();
-					session.setUserData(await request.json());
 					setTimeout(() => {
 						router.replace('/');
 					}, 7 * 1000);

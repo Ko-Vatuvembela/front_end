@@ -4,6 +4,7 @@ import { type ReactNode } from 'react';
 export interface InputType {
 	placeholder: string;
 	name: string;
+	value?: string;
 	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 	label: string;
 	isRequired: boolean;
@@ -16,10 +17,11 @@ export interface ButtonType {
 	style?: string;
 	backgroundColor: string;
 	textColor: string;
+	onClick?: () => void | Promise<void>;
 	image?: string;
 	imageSide?: 'left' | 'right';
 	id?: string;
-	isActive: boolean;
+	isActive?: boolean;
 	hoverColor: string;
 }
 export interface LinkType {

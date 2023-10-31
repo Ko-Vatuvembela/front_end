@@ -14,6 +14,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	useEffect(() => {
 		if (userData === null) {
 			router.replace('/');
+		} else {
+			if (!userData.ativada) {
+				const { email } = userData;
+				localStorage.setItem('email', email);
+				session.deleteSession();
+				router.replace('/public/verify');
+			}
 		}
 	});
 	return (
