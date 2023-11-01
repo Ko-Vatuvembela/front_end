@@ -4,6 +4,7 @@ export const InputText = ({
 	name,
 	type,
 	label,
+	value,
 	placeholder,
 	optinalStyle,
 	isRequired,
@@ -28,6 +29,7 @@ export const InputText = ({
 				id={name}
 				required={isRequired}
 				className={inputStyle + ' ' + optinalStyle}
+				value={value}
 			/>
 		</div>
 	);

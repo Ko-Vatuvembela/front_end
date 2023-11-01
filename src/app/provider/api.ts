@@ -3,7 +3,7 @@ import { getHeaders } from '../components/shared/resources';
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default class FetchRequest {
-	async post(url: string, data: object) {
+	async post (url: string, data: object) {
 		const headers = getHeaders();
 		try {
 			return await fetch(BASE_URL + url, {
@@ -16,7 +16,7 @@ export default class FetchRequest {
 		}
 	}
 
-	async put(url: string, id: number, data: any) {
+	async put (url: string, id: number, data: any) {
 		const headers = getHeaders();
 
 		return await fetch(`${BASE_URL + url}/${id}`, {
@@ -26,7 +26,7 @@ export default class FetchRequest {
 		});
 	}
 
-	async delete(url: string, id: number) {
+	async delete (url: string, id: number) {
 		const headers = getHeaders();
 
 		return await fetch(`${BASE_URL + url}/${id}`, {
@@ -35,7 +35,7 @@ export default class FetchRequest {
 		});
 	}
 
-	async get(url: string) {
+	async get (url: string) {
 		const headers = getHeaders();
 
 		return await fetch(BASE_URL + url, {

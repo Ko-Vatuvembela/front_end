@@ -1,86 +1,92 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 'use client';
-import { useState, useEffect } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { LayoutPattern } from '@/app/public/LayoutPattern';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
-import { LayoutPattern } from '../LayoutPattern';
 import { Button } from '@/app/components/shared/body/forms/Button';
-import { TextLink } from '@/app/components/shared/Link';
+import { filterNumbers } from '@/app/components/shared/resources';
 import Image from 'next/image';
-import { sendMail } from '@/app/components/shared/resources';
-import { RedirectType } from 'next/dist/client/components/redirect';
-import { redirect } from 'next/navigation';
+import FetchRequest from '@/app/provider/api';
 
-export default function VerifyPage () {
-	const email = localStorage.getItem('email');
-	const [errorMessage, updateErrorMessage] = useState<string>('');
+export default function VerifyAccount() {
+	const router = useRouter();
+	const [loadingStyle, setStyle] = useState<string>('hidden');
+	const [errorMessage, updateErrorMessage] = useState<string>();
+	const [verificationCode, updateVerificationCode] = useState('');
+	const email = localStorage.getItem('email') as string;
 
 	useEffect(() => {
-		if (email) {
-			(async () => {
-				if (!(await sendMail(email))) {
-					updateErrorMessage(
-						'Não foi possível enviar o e-mail. Tente novamente ou entre em contato com o administrador do sistema'
-					);
-				} else {
-					localStorage.clear();
-				}
-			})();
-		} else {
-			redirect('/', RedirectType.replace);
+		if (!email) {
+			router.replace('/');
 		}
 	}, []);
+	const handleSubmit = async (event: FormEvent): Promise<void> => {
+		const fetchRequest = new FetchRequest();
+		event.preventDefault();
+		const data = { email, verificationCode };
+		setStyle('');
+		const request = await fetchRequest.post('mail/confirm_code', data);
+		setStyle('hidden');
+		if (request) {
+			if (request.status === 404) {
+				updateErrorMessage('O código de confirmação não existe!!');
+			} else if (request.status === 422) {
+				updateErrorMessage('Insira os dados corretamente !!');
+			} else if (request.status === 200) {
+				updateErrorMessage('');
+				localStorage.clear();
+				router.replace('/');
+			}
+		} else {
+			router.replace('/error/connection');
+		}
+	};
 	return (
-		<>
-			<LayoutPattern
-				backgroundImage="bubu"
-				optionalStyle="mobile:w-[90%] md:w-[60%] lg:w-[40%]  mx-auto"
-			>
+		<LayoutPattern backgroundImage="drum">
+			<div className="mx-auto w-[80%]">
 				<h1 className="text-primaryBlue text-4xl my-8 font-light text-center">
-					Verificação da conta
+					Activação de conta
 				</h1>
-				<form
-					method="post"
-					name="verificarcontaform"
-					className="my-8"
-					// onSubmit={handleSubmit}
-				>
-					<InputText
-						onChange={(e) => {
-							// updateVerificationCode(e);
-						}}
-						isRequired={true}
-						label="Insira o código de confirmação"
-						placeholder="123456"
-						type="text"
-						name="nome"
-					/>
-
-					<Button
-						backgroundColor="bg-primaryBlue"
-						style="w-full"
-						isActive={true}
-						text="Confirmar"
-						textColor="text-white"
-						hoverColor="hover:bg-secondaryBlue"
+				<p className="text-primaryBlue text-xl my-8 font-light text-center">
+					Enviamos um código de confirmação para{' '}
+					<span className="font-bold"> {email}</span>. Assim que o
+					código for confirmado, você será redirecionado
+					automaticamente para realizar o login.
+				</p>
+				<div className="w-[40%] mx-auto">
+					<form action="#" method="post" onSubmit={handleSubmit}>
+						<InputText
+							isRequired={true}
+							onChange={(e) => {
+								updateVerificationCode(filterNumbers(e));
+							}}
+							type="text"
+							label="Código de confirmação"
+							name="codigo"
+							placeholder="123456"
+							value={verificationCode}
+						/>
+						<Button
+							hoverColor="hover:bg-secondaryBlue"
+							backgroundColor="bg-primaryBlue"
+							text="Confirmar"
+							id="botao"
+							style={'w-full'}
+							textColor="text-white"
+						/>
+					</form>
+					<Image
+						alt="Background Image"
+						src={'/images/loading.svg'}
+						width={128}
+						height={128}
+						className={loadingStyle}
 					/>
 					{errorMessage && (
 						<p className=" text-red-700 my-2">{errorMessage}</p>
 					)}
-				</form>
-
-				<Image
-					alt="Background Image"
-					src={'/images/loading.svg'}
-					width={128}
-					height={128}
-					className={'loadingStyle'}
-				/>
-				<TextLink
-					href="/"
-					text="Retroceder"
-					optinalStyle="text-primaryBlue mb-8"
-				/>
-			</LayoutPattern>
-		</>
+				</div>
+			</div>
+		</LayoutPattern>
 	);
 }

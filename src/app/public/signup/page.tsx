@@ -7,6 +7,7 @@ import { Button } from '@/app/components/shared/body/forms/Button';
 import { TextLink } from '@/app/components/shared/Link';
 import FetchRequest from '@/app/provider/api';
 import Image from 'next/image';
+import SessionProvider from '@/app/provider/session';
 import { capitalize } from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
 

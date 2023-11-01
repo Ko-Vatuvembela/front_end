@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default function RootLayout ({
+export default function RootLayout({
 	children,
 }: {
-	children: React.ReactNode
+	children: React.ReactNode;
 }) {
 	return (
 		<html lang="en">
