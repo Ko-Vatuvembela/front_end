@@ -43,7 +43,7 @@ export default function VerifyAccount() {
 	};
 	return (
 		<LayoutPattern backgroundImage="drum">
-			<div className="mx-auto">
+			<div className="mx-auto w-[80%]">
 				<h1 className="text-primaryBlue text-4xl my-8 font-light text-center">
 					Activação de conta
 				</h1>
