@@ -4,7 +4,7 @@ import { useContext } from 'react';
 
 export const VerifyAccount = () => {
 	const userData = useContext(AuthContext);
-	const { nome, sobrenome, email, ativada, token, foto, uid } = userData;
+	const { nome, sobrenome, email } = userData;
 	return (
 		<AuthProvider>
 			<>

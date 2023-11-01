@@ -1,9 +1,8 @@
 'use client';
-import { createContext, useEffect } from 'react';
+import { createContext } from 'react';
 import SessionProvider from '../provider/session';
 import { useRouter } from 'next/navigation';
 import { type UserType } from '../components/types';
-import { signedURL } from '../components/shared/resources';
 
 const session = new SessionProvider();
 const userData = session.getUserData();

@@ -3,7 +3,7 @@ import { Footer } from '@/app/components/shared/Footer';
 import { AuthProvider, AuthContext } from '@/app/context/AuthProvider';
 import { useContext } from 'react';
 
-export default function HomePage() {
+export default function HomePage () {
 	const userData = useContext(AuthContext);
 	const data = userData;
 

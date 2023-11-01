@@ -1,5 +1,5 @@
 'use client';
-import { type FormEvent, useEffect, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
@@ -8,18 +8,17 @@ import { filterNumbers } from '@/app/components/shared/resources';
 import Image from 'next/image';
 import FetchRequest from '@/app/provider/api';
 
-export default function VerifyAccount() {
+export default function VerifyAccount () {
 	const router = useRouter();
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [errorMessage, updateErrorMessage] = useState<string>();
 	const [verificationCode, updateVerificationCode] = useState('');
 	const email = localStorage.getItem('email') as string;
 
-	useEffect(() => {
-		if (!email) {
-			router.replace('/');
-		}
-	}, []);
+	if (!email) {
+		router.replace('/');
+	}
+
 	const handleSubmit = async (event: FormEvent): Promise<void> => {
 		const fetchRequest = new FetchRequest();
 		event.preventDefault();
