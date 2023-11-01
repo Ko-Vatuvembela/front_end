@@ -1,3 +1,4 @@
+'use client';
 import { PublicHeader } from '@/app/components/shared/header/PublicHeader';
 import { Footer } from '@/app/components/shared/Footer';
 import { BackgroundImage } from '@/app/components/shared/BackgroundImage';

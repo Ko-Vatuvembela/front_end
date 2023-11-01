@@ -34,6 +34,7 @@ export default class SessionProvider {
 
 	deleteSession(): void {
 		sessionStorage.clear();
+		localStorage.clear();
 	}
 
 	isAuthenticated(): boolean {

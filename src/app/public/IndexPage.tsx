@@ -8,7 +8,7 @@ import FetchRequest from '@/app/provider/api';
 import SessionProvider from '@/app/provider/session';
 import { signedURL } from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
-import { LoggedIn } from '@/app/components/middleware/IsLogged';
+import { IsLogged } from '@/app/components/middleware/IsLogged';
 const fetchRequest = new FetchRequest();
 const session = new SessionProvider();
 
@@ -42,7 +42,7 @@ export const IndexPage = () => {
 	};
 
 	return (
-		<LoggedIn>
+		<IsLogged>
 			<>
 				<div className="mx-auto">
 					<h1 className="text-primaryBlue text-4xl my-8 font-light text-center">
@@ -144,6 +144,6 @@ export const IndexPage = () => {
 					</div>
 				</div>
 			</>
-		</LoggedIn>
+		</IsLogged>
 	);
 };
