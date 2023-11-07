@@ -10,10 +10,10 @@ export const getHeaders = (): Headers => {
 	}
 	return headers;
 };
-export function capitalize (e: string) {
+export function capitalize(e: string) {
 	return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
 }
-export function filterNumbers (e: string): string {
+export function filterNumbers(e: string): string {
 	let ret = '';
 	for (const a of e) {
 		const tmp = Number(a);
@@ -29,3 +29,5 @@ export const sendMail = async (email: string): Promise<boolean> => {
 };
 export const signedURL = '/signed-in/home';
 export const loginURL = '/';
+export const RECOVER_PASSWORD = 'RRR';
+export const ACTIVATE_ACCOUNT = 'AAA';

@@ -1,5 +1,5 @@
 'use client';
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 import SessionProvider from '../provider/session';
 import { useRouter } from 'next/navigation';
 import { type UserType } from '../components/types';
@@ -10,16 +10,20 @@ const AuthContext = createContext<UserType | null>(userData);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const router = useRouter();
-	if (userData === null) {
-		router.replace('/');
-	} else {
-		if (!userData.ativada) {
-			const { email } = userData;
-			localStorage.setItem('email', email);
-			session.deleteSession();
-			router.replace('/public/verify');
+
+	useEffect(() => {
+		if (userData === null) {
+			router.replace('/');
+		} else {
+			if (!userData.ativada) {
+				const { email } = userData;
+				localStorage.setItem('email', email);
+				session.deleteSession();
+				router.replace('/public/verify');
+			}
 		}
-	}
+	});
+
 	return (
 		<AuthContext.Provider value={userData}>{children}</AuthContext.Provider>
 	);
