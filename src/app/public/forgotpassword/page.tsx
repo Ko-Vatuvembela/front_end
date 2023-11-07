@@ -7,7 +7,7 @@ import { Button } from '@/app/components/shared/body/forms/Button';
 import Image from 'next/image';
 import FetchRequest from '@/app/provider/api';
 
-export default function ForgotPassword() {
+export default function ForgotPassword () {
 	const router = useRouter();
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [errorMessage, updateErrorMessage] = useState<string>();
