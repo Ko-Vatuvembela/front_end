@@ -7,10 +7,12 @@ import { Button } from '@/app/components/shared/body/forms/Button';
 import Image from 'next/image';
 import FetchRequest from '@/app/provider/api';
 
-export default function ForgotPassword () {
+export default function ForgotPassword() {
 	const router = useRouter();
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [errorMessage, updateErrorMessage] = useState<string>();
+	const [errorMessageStyle, updateErrorMessageStyle] =
+		useState<string>('text-red-700 my-2');
 	const [email, updateEmail] = useState('');
 
 	const handleSubmit = async (event: FormEvent): Promise<void> => {
@@ -18,17 +20,21 @@ export default function ForgotPassword () {
 		event.preventDefault();
 		const data = { email };
 		setStyle('');
-		const request = await fetchRequest.post('mail/send_code', data);
+		const request = await fetchRequest.post('auth/forgotpassword', data);
 		setStyle('hidden');
 		if (request) {
 			if (request.status === 404) {
+				updateErrorMessageStyle('text-red-700 my-2');
 				updateErrorMessage('O email ' + email + ' não existe!!');
 			} else if (request.status === 422) {
 				updateErrorMessage('Insira os dados corretamente !!');
 			} else if (request.status === 200) {
-				updateErrorMessage('');
-				localStorage.setItem('email', email);
-				router.replace('/public/verify');
+				const { message } = await request.json();
+				updateErrorMessage(message);
+				updateErrorMessageStyle('text-green-700 my-2');
+				setTimeout(() => {
+					router.replace('/');
+				}, 7 * 1000);
 			}
 		} else {
 			router.replace('/error/connection');
@@ -71,7 +77,7 @@ export default function ForgotPassword () {
 						className={loadingStyle}
 					/>
 					{errorMessage && (
-						<p className=" text-red-700 my-2">{errorMessage}</p>
+						<p className={errorMessageStyle}>{errorMessage}</p>
 					)}
 				</div>
 			</div>
