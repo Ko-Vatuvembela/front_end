@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 import FetchRequest from '@/app/provider/api';
 
-export default function VerifyAccount() {
+export default function VerifyAccount () {
 	const router = useRouter();
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [errorMessage, updateErrorMessage] = useState<string>();

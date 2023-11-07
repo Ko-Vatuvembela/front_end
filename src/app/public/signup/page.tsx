@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 
 const fetchRequest = new FetchRequest();
 
-export default function SignUpPage() {
+export default function SignUpPage () {
 	const router = useRouter();
 	const [nome, updateNome] = useState<string>('');
 	const [loadingStyle, setStyle] = useState<string>('hidden');
