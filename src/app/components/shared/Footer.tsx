@@ -18,14 +18,9 @@ export const Footer = ({ optinalStyle = '', isLogged = false }) => {
 					<li className="md:inline mx-5">
 						<TextLink href={'#'} text="Transparência" />
 					</li>
-					{isLogged && (
-						<li className="md:inline mx-5">
-							<TextLink
-								href={'/signed-in/logout'}
-								text="Logout"
-							/>
-						</li>
-					)}
+					<li className={isLogged ? 'md:inline mx-5' : 'hidden'}>
+						<TextLink href={'/signed-in/logout'} text="Logout" />
+					</li>
 				</ul>
 				<p>{new Date().getFullYear()} &copy; Ko Vatuvembela</p>
 			</div>
