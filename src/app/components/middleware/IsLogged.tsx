@@ -4,14 +4,15 @@ import SessionProvider from '@/app/provider/session';
 import { useRouter } from 'next/navigation';
 import { signedURL } from '../shared/resources';
 
-export const LoggedIn = ({ children }: { children: ReactNode }) => {
+export const IsLogged = ({ children }: { children: ReactNode }) => {
 	const session = new SessionProvider();
 	const router = useRouter();
 
 	useEffect(() => {
-		if (session.getUserData()) {
+		if (session.isSession()) {
 			router.push(signedURL);
 		}
-	}, []);
+	});
+
 	return <>{children}</>;
 };

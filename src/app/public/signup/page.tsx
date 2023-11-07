@@ -7,13 +7,12 @@ import { Button } from '@/app/components/shared/body/forms/Button';
 import { TextLink } from '@/app/components/shared/Link';
 import FetchRequest from '@/app/provider/api';
 import Image from 'next/image';
-import SessionProvider from '@/app/provider/session';
 import { capitalize } from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
 
 const fetchRequest = new FetchRequest();
 
-export default function SignUpPage() {
+export default function SignUpPage () {
 	const router = useRouter();
 	const [nome, updateNome] = useState<string>('');
 	const [loadingStyle, setStyle] = useState<string>('hidden');

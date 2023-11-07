@@ -1,47 +1,37 @@
 'use client';
-import { type FormEvent, useState, useEffect } from 'react';
+import { type FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
 import { Button } from '@/app/components/shared/body/forms/Button';
-import { filterNumbers } from '@/app/components/shared/resources';
 import Image from 'next/image';
-
 import FetchRequest from '@/app/provider/api';
 
-export default function VerifyAccount () {
+export default function ForgotPassword () {
 	const router = useRouter();
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [errorMessage, updateErrorMessage] = useState<string>();
-	const [errorStyle, updateErrorStyle] = useState('text-red-700 my-2');
-
-	const [verificationCode, updateVerificationCode] = useState('');
-	const email = localStorage.getItem('email') as string;
-
-	useEffect(() => {
-		if (!email) {
-			router.replace('/');
-		}
-	});
+	const [errorMessageStyle, updateErrorMessageStyle] =
+		useState<string>('text-red-700 my-2');
+	const [email, updateEmail] = useState('');
 
 	const handleSubmit = async (event: FormEvent): Promise<void> => {
 		const fetchRequest = new FetchRequest();
 		event.preventDefault();
-		const data = { email, verificationCode };
+		const data = { email };
 		setStyle('');
-		const request = await fetchRequest.post('mail/confirm_code', data);
+		const request = await fetchRequest.post('auth/forgotpassword', data);
 		setStyle('hidden');
 		if (request) {
 			if (request.status === 404) {
-				updateErrorMessage('O código de confirmação não existe!!');
+				updateErrorMessageStyle('text-red-700 my-2');
+				updateErrorMessage('O email ' + email + ' não existe!!');
 			} else if (request.status === 422) {
 				updateErrorMessage('Insira os dados corretamente !!');
 			} else if (request.status === 200) {
-				localStorage.clear();
-				updateErrorStyle('text-green-700 my-2');
-				updateErrorMessage(
-					`Foi enviado uma nova senha para o email ${email}. Abra a caixa de entrada e realize o login na plataforma.`
-				);
+				const { message } = await request.json();
+				updateErrorMessage(message);
+				updateErrorMessageStyle('text-green-700 my-2');
 				setTimeout(() => {
 					router.replace('/');
 				}, 7 * 1000);
@@ -54,26 +44,21 @@ export default function VerifyAccount () {
 		<LayoutPattern backgroundImage="drum">
 			<div className="mx-auto w-[80%]">
 				<h1 className="text-primaryBlue text-4xl my-8 font-light text-center">
-					Activação de conta
+					Recuperação da senha
 				</h1>
-				<p className="text-primaryBlue text-xl my-8 font-light text-center">
-					Enviamos um código de confirmação para{' '}
-					<span className="font-bold"> {email}</span>. Assim que o
-					código for confirmado, você será redirecionado
-					automaticamente para realizar o login.
-				</p>
-				<div className="w-[40%] mx-auto">
+
+				<div className="w-[50%] mx-auto">
 					<form action="#" method="post" onSubmit={handleSubmit}>
 						<InputText
 							isRequired={true}
 							onChange={(e) => {
-								updateVerificationCode(filterNumbers(e));
+								updateEmail(e);
 							}}
-							type="text"
-							label="Código de confirmação"
-							name="codigo"
-							placeholder="123456"
-							value={verificationCode}
+							type="email"
+							label="Insira o email"
+							name="email"
+							placeholder="email@dominio.com"
+							value={email}
 						/>
 						<Button
 							hoverColor="hover:bg-secondaryBlue"
@@ -92,7 +77,7 @@ export default function VerifyAccount () {
 						className={loadingStyle}
 					/>
 					{errorMessage && (
-						<p className={errorStyle}>{errorMessage}</p>
+						<p className={errorMessageStyle}>{errorMessage}</p>
 					)}
 				</div>
 			</div>

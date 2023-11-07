@@ -10,6 +10,7 @@ export default class FetchRequest {
 				method: 'POST',
 				body: JSON.stringify(data),
 				headers,
+				cache: 'no-cache',
 			});
 		} catch (e: any) {
 			return null;
@@ -23,6 +24,7 @@ export default class FetchRequest {
 			body: JSON.stringify(data),
 			headers,
 			method: 'PUT',
+			cache: 'no-cache',
 		});
 	}
 
@@ -32,6 +34,7 @@ export default class FetchRequest {
 		return await fetch(`${BASE_URL + url}/${id}`, {
 			headers,
 			method: 'DELETE',
+			cache: 'no-cache',
 		});
 	}
 
@@ -41,6 +44,7 @@ export default class FetchRequest {
 		return await fetch(BASE_URL + url, {
 			headers,
 			method: 'GET',
+			cache: 'no-cache',
 		});
 	}
 }
