@@ -1,7 +1,19 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { TextLink } from './Link';
+import SessionProvider from '@/app/provider/session';
 
-export const Footer = ({ optinalStyle = '', isLogged = false }) => {
+const sessionProvider = new SessionProvider();
+
+export const Footer = ({ optinalStyle = '' }) => {
+	const [style, updateStyle] = useState('');
+
+	useEffect(() => {
+		updateStyle(
+			sessionProvider.isAuthenticated() ? 'md:inline mx-5' : 'hidden'
+		);
+	}, []);
+
 	return (
 		<div className={optinalStyle}>
 			<div className={' text-center mb-5 z-100'}>
@@ -18,7 +30,7 @@ export const Footer = ({ optinalStyle = '', isLogged = false }) => {
 					<li className="md:inline mx-5">
 						<TextLink href={'#'} text="Transparência" />
 					</li>
-					<li className={isLogged ? 'md:inline mx-5' : 'hidden'}>
+					<li className={style}>
 						<TextLink href={'/signed-in/logout'} text="Logout" />
 					</li>
 				</ul>

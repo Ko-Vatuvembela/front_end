@@ -53,3 +53,9 @@ export interface SessionType {
 	token: string;
 	data: Date;
 }
+export interface MenuOptionType {
+	image: string;
+	width: number | 128;
+	height: number | 128;
+	text: string;
+}
