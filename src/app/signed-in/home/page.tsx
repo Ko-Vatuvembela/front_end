@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { type MenuOptionType } from '@/app/components/types';
 
-export default function HomePage() {
+export default function HomePage () {
 	// const userData = useContext(AuthContext);
 	const IMAGE_DIR = '/images/';
 	const width = 125;

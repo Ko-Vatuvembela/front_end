@@ -1,6 +1,5 @@
 import FetchRequest from '@/app/provider/api';
 import SessionProvider from '@/app/provider/session';
-import { MenuOptionType } from '../types';
 const session = new SessionProvider();
 
 export const getHeaders = (): Headers => {
@@ -11,10 +10,10 @@ export const getHeaders = (): Headers => {
 	}
 	return headers;
 };
-export function capitalize(e: string) {
+export function capitalize (e: string) {
 	return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
 }
-export function filterNumbers(e: string): string {
+export function filterNumbers (e: string): string {
 	let ret = '';
 	for (const a of e) {
 		const tmp = Number(a);
