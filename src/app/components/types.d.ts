@@ -26,6 +26,7 @@ export interface ButtonType {
 }
 export interface LinkType {
 	text: string;
+	onClick?: () => void;
 	optinalStyle?: string;
 	href: string;
 }
