@@ -55,6 +55,7 @@ export interface SessionType {
 }
 export interface MenuOptionType {
 	image: string;
+	link: string;
 	width: number | 128;
 	height: number | 128;
 	text: string;
