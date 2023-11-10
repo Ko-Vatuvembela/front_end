@@ -26,6 +26,7 @@ export interface ButtonType {
 }
 export interface LinkType {
 	text: string;
+	onClick?: () => void;
 	optinalStyle?: string;
 	href: string;
 }
@@ -52,4 +53,11 @@ export interface UserType {
 export interface SessionType {
 	token: string;
 	data: Date;
+}
+export interface MenuOptionType {
+	image: string;
+	link: string;
+	width: number | 128;
+	height: number | 128;
+	text: string;
 }

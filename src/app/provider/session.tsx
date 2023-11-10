@@ -1,3 +1,4 @@
+'use client';
 import { type UserType } from '../components/types';
 
 export default class SessionProvider {
@@ -7,36 +8,51 @@ export default class SessionProvider {
 
 	isSession (): boolean {
 		try {
-			return sessionStorage.length > 0;
+			if (typeof window !== 'undefined') {
+				return sessionStorage.length > 0;
+			}
+			return false;
 		} catch (e) {
 			return false;
 		}
 	}
 
 	setUserData (userData: UserType): void {
-		sessionStorage.setItem('userData', JSON.stringify(userData));
+		if (typeof window !== 'undefined') {
+			sessionStorage.setItem('userData', JSON.stringify(userData));
+		}
 	}
 
 	getUserData (): UserType | null {
-		if (this.isSession()) {
-			return Object(
-				JSON.parse(sessionStorage.getItem('userData') as string)
-			) as UserType;
+		if (typeof window !== 'undefined') {
+			if (this.isSession()) {
+				return Object(
+					JSON.parse(sessionStorage.getItem('userData') as string)
+				) as UserType;
+			}
 		}
+
 		return null;
 	}
 
 	updateUserData (updateData: UserType): void {
-		if (this.isSession()) {
-			sessionStorage.setItem('userData', JSON.stringify(updateData));
+		if (typeof window !== 'undefined') {
+			if (this.isSession()) {
+				sessionStorage.setItem('userData', JSON.stringify(updateData));
+			}
 		}
 	}
 
 	deleteSession (): void {
-		sessionStorage.clear();
+		if (typeof window !== 'undefined') {
+			sessionStorage.clear();
+		}
 	}
 
 	isAuthenticated (): boolean {
-		return this.isSession();
+		if (typeof window !== 'undefined') {
+			return this.isSession();
+		}
+		return false;
 	}
 }

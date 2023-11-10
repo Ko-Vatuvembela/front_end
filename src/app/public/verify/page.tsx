@@ -14,12 +14,15 @@ export default function VerifyAccount () {
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [errorMessage, updateErrorMessage] = useState<string>();
 	const [errorStyle, updateErrorStyle] = useState('text-red-700 my-2');
+	const [email, setEmail] = useState('');
 
 	const [verificationCode, updateVerificationCode] = useState('');
-	const email = localStorage.getItem('email') as string;
 
 	useEffect(() => {
-		if (!email) {
+		setEmail(localStorage.getItem('email') as string);
+		localStorage.clear();
+
+		if (email.length === 0) {
 			router.replace('/');
 		}
 	});
@@ -37,7 +40,6 @@ export default function VerifyAccount () {
 			} else if (request.status === 422) {
 				updateErrorMessage('Insira os dados corretamente !!');
 			} else if (request.status === 200) {
-				localStorage.clear();
 				updateErrorStyle('text-green-700 my-2');
 				updateErrorMessage(
 					`Foi enviado uma nova senha para o email ${email}. Abra a caixa de entrada e realize o login na plataforma.`
