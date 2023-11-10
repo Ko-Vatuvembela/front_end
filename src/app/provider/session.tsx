@@ -2,42 +2,57 @@
 import { type UserType } from '../components/types';
 
 export default class SessionProvider {
-	setToken(tokens: string): void {
+	setToken (tokens: string): void {
 		sessionStorage.setItem('token', tokens);
 	}
 
-	isSession(): boolean {
+	isSession (): boolean {
 		try {
-			return sessionStorage.length > 0;
+			if (typeof window !== 'undefined') {
+				return sessionStorage.length > 0;
+			}
+			return false;
 		} catch (e) {
 			return false;
 		}
 	}
 
-	setUserData(userData: UserType): void {
-		sessionStorage.setItem('userData', JSON.stringify(userData));
+	setUserData (userData: UserType): void {
+		if (typeof window !== 'undefined') {
+			sessionStorage.setItem('userData', JSON.stringify(userData));
+		}
 	}
 
-	getUserData(): UserType | null {
-		if (this.isSession()) {
-			return Object(
-				JSON.parse(sessionStorage.getItem('userData') as string)
-			) as UserType;
+	getUserData (): UserType | null {
+		if (typeof window !== 'undefined') {
+			if (this.isSession()) {
+				return Object(
+					JSON.parse(sessionStorage.getItem('userData') as string)
+				) as UserType;
+			}
 		}
+
 		return null;
 	}
 
-	updateUserData(updateData: UserType): void {
-		if (this.isSession()) {
-			sessionStorage.setItem('userData', JSON.stringify(updateData));
+	updateUserData (updateData: UserType): void {
+		if (typeof window !== 'undefined') {
+			if (this.isSession()) {
+				sessionStorage.setItem('userData', JSON.stringify(updateData));
+			}
 		}
 	}
 
-	deleteSession(): void {
-		sessionStorage.clear();
+	deleteSession (): void {
+		if (typeof window !== 'undefined') {
+			sessionStorage.clear();
+		}
 	}
 
-	isAuthenticated(): boolean {
-		return this.isSession();
+	isAuthenticated (): boolean {
+		if (typeof window !== 'undefined') {
+			return this.isSession();
+		}
+		return false;
 	}
 }
