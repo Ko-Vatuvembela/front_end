@@ -6,8 +6,9 @@ import { Menu } from '@/app/components/shared/Menu';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { type MenuOptionType } from '@/app/components/types';
+import { LayoutPattern } from '@/app/public/LayoutPattern';
 
-export default function HomePage () {
+export default function HomePage() {
 	// const userData = useContext(AuthContext);
 	const IMAGE_DIR = '/images/';
 	const width = 125;
@@ -63,8 +64,7 @@ export default function HomePage () {
 	];
 	return (
 		<AuthProvider>
-			<>
-				<Menu /* foto={data?.foto} */ />
+			<LayoutPattern backgroundImage="bubu">
 				<div className="mx-auto my-[5rem] w-[60%]   grid grid-cols-3 gap-6 content-center  text-center">
 					{menuOptions.map(
 						({ height, image, text, link, width }, id) => (
@@ -86,8 +86,7 @@ export default function HomePage () {
 						)
 					)}
 				</div>
-				<Footer />
-			</>
+			</LayoutPattern>
 		</AuthProvider>
 	);
 }
