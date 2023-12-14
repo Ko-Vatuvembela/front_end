@@ -15,11 +15,11 @@ export default function Dicionario() {
 				const req = await fetchR.get('lingua');
 				const listaTemporaria = (await req.json()) as LanguageType[];
 				// const lista: LanguageType[] = [];
-				const lista = listaTemporaria.map(
-					{ id, lingua }:Langu =>{
-						id,lingua
-					});
-						
+				// const lista = listaTemporaria.map(
+				// 	{ id, lingua }:Langu =>{
+				// 		id,lingua
+				// 	});
+
 				//setLinguagens(lista);
 				console.log(lista, linguagens);
 			} catch (e) {
