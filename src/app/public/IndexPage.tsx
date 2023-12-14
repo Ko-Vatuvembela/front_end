@@ -32,7 +32,7 @@ export const IndexPage = () => {
 			} else if (request.status === 200) {
 				updateErrorMessage('');
 				const { token, user } = await request.json();
-				user.token = token;
+				user.token = token.token;
 				session.setUserData(user);
 				router.push(signedURL);
 			}

@@ -61,3 +61,7 @@ export interface MenuOptionType {
 	height: number | 128;
 	text: string;
 }
+export interface LanguageType {
+	lingua: string;
+	id: number;
+}
