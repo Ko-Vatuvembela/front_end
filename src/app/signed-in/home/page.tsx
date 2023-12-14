@@ -1,14 +1,12 @@
 'use client';
-import { Footer } from '@/app/components/shared/Footer';
 import { AuthProvider /* AuthContext */ } from '@/app/context/AuthProvider';
 // import { useContext } from 'react';
-import { Menu } from '@/app/components/shared/Menu';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { type MenuOptionType } from '@/app/components/types';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 
-export default function HomePage() {
+export default function HomePage () {
 	// const userData = useContext(AuthContext);
 	const IMAGE_DIR = '/images/';
 	const width = 125;
