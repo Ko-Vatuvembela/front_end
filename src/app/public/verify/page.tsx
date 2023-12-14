@@ -18,6 +18,7 @@ export default function VerifyAccount () {
 
 	const [verificationCode, updateVerificationCode] = useState('');
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		setEmail(localStorage.getItem('email') as string);
 		localStorage.clear();
