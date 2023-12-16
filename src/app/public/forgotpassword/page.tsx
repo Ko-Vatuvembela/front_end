@@ -34,7 +34,7 @@ export default function ForgotPassword () {
 				updateErrorMessageStyle('text-green-700 my-2');
 				setTimeout(() => {
 					router.replace('/');
-				}, 7 * 1000);
+				}, 3 * 1000);
 			}
 		} else {
 			router.replace('/error/connection');

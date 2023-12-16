@@ -45,7 +45,7 @@ export default function SignUpPage () {
 					);
 					setTimeout(() => {
 						router.replace('/');
-					}, 7 * 1000);
+					}, 3 * 1000);
 				}
 			} else {
 				router.replace('/error/connection');

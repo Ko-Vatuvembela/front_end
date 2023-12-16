@@ -2,7 +2,7 @@
 import { AuthProvider /* AuthContext */ } from '@/app/context/AuthProvider';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 
-export default function NewComponent() {
+export default function NewComponent () {
 	return (
 		<AuthProvider>
 			<LayoutPattern backgroundImage="bubu">

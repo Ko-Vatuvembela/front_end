@@ -10,14 +10,17 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
 	title: 'Ko Vatuvembela',
+	icons: {
+		icon: '/images/logo.svg',
+	},
 	description: 'Projeto de integração de línguas Africanas',
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default function RootLayout ({
+export default function RootLayout({
 	children,
 }: {
-	children: React.ReactNode
+	children: React.ReactNode;
 }) {
 	return (
 		<html lang="en">

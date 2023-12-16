@@ -20,10 +20,9 @@ export default function VerifyAccount () {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
-		setEmail(localStorage.getItem('email') as string);
-		localStorage.clear();
-
-		if (email.length === 0) {
+		const mail = localStorage.getItem('email') as string;
+		setEmail(mail);
+		if (email === null) {
 			router.replace('/');
 		}
 	});
@@ -41,13 +40,13 @@ export default function VerifyAccount () {
 			} else if (request.status === 422) {
 				updateErrorMessage('Insira os dados corretamente !!');
 			} else if (request.status === 200) {
+				const { message } = await request.json();
 				updateErrorStyle('text-green-700 my-2');
-				updateErrorMessage(
-					`Foi enviado uma nova senha para o email ${email}. Abra a caixa de entrada e realize o login na plataforma.`
-				);
+				updateErrorMessage(message);
 				setTimeout(() => {
+					localStorage.clear();
 					router.replace('/');
-				}, 7 * 1000);
+				}, 3 * 1000);
 			}
 		} else {
 			router.replace('/error/connection');
