@@ -36,7 +36,7 @@ const letters = [
 	'Z',
 ];
 
-export default function Dicionario () {
+export default function Dicionario() {
 	const router = useRouter();
 	const [langs, updateList] = useState<LanguageType[]>([]);
 	const [languageID, setLanguageID] = useState<string>('');
@@ -89,7 +89,9 @@ export default function Dicionario () {
 							))}
 							;
 						</select>
-
+						<p className="text-3xl max-sm:text-center font-light my-8 max-md-text-center">
+							Ou navegue por ordem alfabética
+						</p>
 						<section className="my-5 flex flex-wrap justify-center">
 							{letters.map((value, id) => (
 								<TextLink
