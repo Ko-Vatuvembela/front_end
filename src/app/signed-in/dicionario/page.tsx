@@ -44,9 +44,16 @@ export default function Dicionario () {
 	useEffect(() => {
 		(async () => {
 			try {
-				const list = await (await request.get('lingua')).json();
-				updateList(list);
-				setLanguageID(list[0].id);
+				const req = await request.get('lingua');
+
+				if (req.status === 401) {
+					sessionStorage.clear();
+					router.replace('/');
+				} else if (req.status === 200) {
+					const list = await req.json();
+					updateList(list);
+					setLanguageID(list[0].id);
+				}
 			} catch (e) {
 				router.replace('/error/500');
 			}
