@@ -63,7 +63,7 @@ export default function Dicionario() {
 	return (
 		<AuthProvider>
 			<LayoutPattern backgroundImage="drum">
-				<div className="max-sm:w-[95%]  mx-auto ">
+				<div className="max-lg:w-[95%]  mx-auto ">
 					<p className="text-3xl max-sm:text-center font-light my-8 max-md-text-center">
 						Faça alguma pesquisa no nosso dicionário
 					</p>
@@ -103,6 +103,13 @@ export default function Dicionario() {
 							))}
 						</section>
 					</div>
+					<TextLink
+						href={
+							'/signed-in/dicionario/contribuir?languageID=' +
+							languageID
+						}
+						text="Ou clique aqui para adicionar alguma palavra/significado ao dicionário"
+					/>
 				</div>
 			</LayoutPattern>
 		</AuthProvider>
