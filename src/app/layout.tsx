@@ -4,8 +4,9 @@ import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({
 	style: ['normal', 'italic'],
-	weight: ['100', '300', '400', '500', '700', '900'],
+	weight: ['100', '500', '700'],
 	subsets: ['latin'],
+	display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -17,10 +18,10 @@ export const metadata: Metadata = {
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default function RootLayout ({
+export default function RootLayout({
 	children,
 }: {
-	children: React.ReactNode
+	children: React.ReactNode;
 }) {
 	return (
 		<html lang="en">
