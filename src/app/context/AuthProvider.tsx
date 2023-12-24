@@ -18,7 +18,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			if (!userData.ativada) {
 				const { email } = userData;
 				localStorage.setItem('email', email);
-				console.log('antes ' + email);
 				session.deleteSession();
 				router.replace('/public/verify');
 			}
