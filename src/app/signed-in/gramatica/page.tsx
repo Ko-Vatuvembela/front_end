@@ -10,6 +10,7 @@ import FetchRequest from '@/app/provider/api';
 const request = new FetchRequest();
 
 export default function NewComponent () {
+	const h1 = 'text-3xl text-center font-light my-8 max-md-text-center';
 	const unselectedStyle =
 		'm-2 bg-slate-500 text-white p-3 rounded-lg border border-slate-500 hover:bg-white hover:cursor-pointer hover:text-slate-500';
 	const selectedStyle =
@@ -65,9 +66,7 @@ export default function NewComponent () {
 		<AuthProvider>
 			<LayoutPattern backgroundImage="vaso">
 				<div>
-					<p className="text-3xl text-center font-light my-8 max-md-text-center">
-						Selecione a língua
-					</p>
+					<p className={h1}>Selecione a língua</p>
 					<div className="flex flex-wrap justify-center linguas">
 						{langs.map(({ lingua }, id) => (
 							<span
@@ -81,7 +80,7 @@ export default function NewComponent () {
 							</span>
 						))}
 					</div>
-					<p className="text-3xl font-light my-8 text-center">
+					<p className={h1}>
 						Clique sobre o tópico que deseja pesquisar
 					</p>
 					<div className="flex  flex-wrap justify-center">
