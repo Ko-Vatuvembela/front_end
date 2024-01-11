@@ -1,4 +1,4 @@
-import { type InputType } from '@/app/components/types';
+import { type IInput } from '@/app/components/types';
 
 export const InputText = ({
 	name,
@@ -9,7 +9,7 @@ export const InputText = ({
 	optinalStyle,
 	isRequired,
 	onChange,
-}: InputType) => {
+}: IInput) => {
 	const inputStyle =
 		'border rounded-[14px] w-full pl-5 py-[14px] bg-transparent ';
 	const labelStyle = 'text-primaryBlue text-[14px] font-semibold';

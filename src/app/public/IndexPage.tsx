@@ -6,7 +6,7 @@ import { TextLink } from '@/app/components/shared/Link';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
 import FetchRequest from '@/app/provider/api';
 import SessionProvider from '@/app/provider/session';
-import { signedURL } from '@/app/components/shared/resources';
+import { OK, UNAUTHORIZED, signedURL } from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
 import { IsLogged } from '@/app/components/middleware/IsLogged';
 const fetchRequest = new FetchRequest();
@@ -27,9 +27,9 @@ export const IndexPage = () => {
 		const request = await fetchRequest.post('auth/login', data);
 		setStyle('hidden');
 		if (request) {
-			if (request.status === 401) {
+			if (request.status === UNAUTHORIZED) {
 				updateErrorMessage('Usuário e/ou senha inválidos !!');
-			} else if (request.status === 200) {
+			} else if (request.status === OK) {
 				updateErrorMessage('');
 				const { token, user } = await request.json();
 				user.token = token.token;

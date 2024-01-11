@@ -10,10 +10,10 @@ export const getHeaders = (): Headers => {
 	}
 	return headers;
 };
-export function capitalize (e: string) {
+export function capitalize(e: string) {
 	return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
 }
-export function filterNumbers (e: string): string {
+export function filterNumbers(e: string): string {
 	let ret = '';
 	for (const a of e) {
 		const tmp = Number(a);
@@ -53,3 +53,9 @@ export const categorias = [
 		descricao: 'Esta secção conterá assuntos diversos sobre a língua.',
 	},
 ];
+
+export const ALL_LANGUAGES = 200;
+export const UNAUTHORIZED = 401;
+export const INTERNAL_SERVER_ERROR = 500;
+export const OK = 200;
+export const UNPROCESSABLE_ENTITY = 422;

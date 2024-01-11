@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-delimiter-style */
 import { type ReactNode } from 'react';
 
-export interface InputType {
+export interface IInput {
 	placeholder: string;
 	name: string;
 	value?: string;
@@ -12,7 +12,7 @@ export interface InputType {
 	type: 'email' | 'password' | 'text';
 }
 
-export interface ButtonType {
+export interface IButton {
 	text: string;
 	style?: string;
 	backgroundColor: string;
@@ -24,24 +24,24 @@ export interface ButtonType {
 	isActive?: boolean;
 	hoverColor: string;
 }
-export interface LinkType {
+export interface ILink {
 	text: string;
 	onClick?: () => void;
 	optinalStyle?: string;
 	href: string;
 }
-export interface BackgroundImageType {
+export interface IBackgroundImage {
 	width: number;
 	height: number;
 	source: string;
 }
-export interface LayoutType {
+export interface ILayout {
 	backgroundImage: string;
 	optionalStyle?: string;
 	children: ReactNode;
 }
 
-export interface UserType {
+export interface IUser {
 	nome: string;
 	sobrenome: string;
 	email: string;
@@ -50,18 +50,25 @@ export interface UserType {
 	token?: string;
 	uid: number;
 }
-export interface SessionType {
+export interface ISession {
 	token: string;
 	data: Date;
 }
-export interface MenuOptionType {
+export interface IMenuOption {
 	image: string;
 	link: string;
 	width: number | 128;
 	height: number | 128;
 	text: string;
 }
-export interface LanguageType {
+export interface ILanguage {
 	lingua: string;
 	id: number;
+}
+export interface IPost {
+	idPostagem: number;
+	categoria: string;
+	conteudo: string;
+	utilizadorFK: number;
+	linguaFK: number;
 }
