@@ -1,22 +1,28 @@
 'use client';
 import { AuthProvider } from '@/app/context/AuthProvider';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
-import { type LanguageType } from '@/app/components/types';
+import { type ILanguage } from '@/app/components/types';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { categorias } from '@/app/components/shared/resources';
+import {
+	ALL_LANGUAGES,
+	OK,
+	UNAUTHORIZED,
+	categorias,
+} from '@/app/components/shared/resources';
 import FetchRequest from '@/app/provider/api';
+import { Back } from '@/app/components/shared/Back';
 
 const request = new FetchRequest();
 
-export default function NewComponent () {
+export default function NewComponent() {
 	const h1 = 'text-3xl text-center font-light my-8 max-md-text-center';
 	const unselectedStyle =
 		'm-2 bg-slate-500 text-white p-3 rounded-lg border border-slate-500 hover:bg-white hover:cursor-pointer hover:text-slate-500';
 	const selectedStyle =
 		'm-2 bg-primaryBlue text-white p-3 rounded-lg border border-primaryBlue hover:cursor-pointer hover:bg-white hover:text-primaryBlue';
 
-	const [langs, updateList] = useState<LanguageType[]>([]);
+	const [langs, updateList] = useState<ILanguage[]>([]);
 
 	const [selectedLanguage, updateLanguage] = useState('Todas');
 	const selectedCategory = useRef('');
@@ -30,7 +36,7 @@ export default function NewComponent () {
 				updateLanguage('Todas');
 			} else {
 				selectedElement.className = selectedStyle;
-				updateLanguage(langs[index].lingua);
+				updateLanguage(String(langs[index].id));
 			}
 
 			for (let i = 0; i < linguasDiv.children.length; i++) {
@@ -48,12 +54,12 @@ export default function NewComponent () {
 			try {
 				const req = await request.get('lingua');
 
-				if (req.status === 401) {
+				if (req.status === UNAUTHORIZED) {
 					sessionStorage.clear();
 					router.replace('/');
-				} else if (req.status === 200) {
-					const list = (await req.json()) as LanguageType[];
-					list.unshift({ id: 15, lingua: 'Todas' });
+				} else if (req.status === OK) {
+					const list = (await req.json()) as ILanguage[];
+					list.unshift({ id: ALL_LANGUAGES, lingua: 'Todas' });
 					updateList(list);
 				}
 			} catch (e) {
@@ -95,10 +101,8 @@ export default function NewComponent () {
 										e.currentTarget.className =
 											'max-w-sm rounded overflow-hidden hover:cursor-pointer shadow-lg m-2';
 										setTimeout(() => {
-											console.log(
-												selectedLanguage,
-												selectedCategory.current
-											); // Redirecionar para a página
+											const URL = `/signed-in/gramatica/categoria?categoria=${selectedCategory.current}&lingua=${selectedLanguage}`;
+											router.push(URL);
 										}, 1000);
 									}}
 								>
@@ -114,6 +118,7 @@ export default function NewComponent () {
 							);
 						})}
 					</div>
+					<Back />
 				</div>
 			</LayoutPattern>
 		</AuthProvider>

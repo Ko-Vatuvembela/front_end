@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { type LinkType } from '../types';
-export const TextLink = ({ href, text, optinalStyle, onClick }: LinkType) => {
+import { type ILink } from '../types';
+export const TextLink = ({ href, text, optinalStyle, onClick }: ILink) => {
 	return (
 		<Link
 			href={href}

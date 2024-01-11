@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import { type BackgroundImageType } from '../types';
+import { type IBackgroundImage } from '../types';
 
 export const BackgroundImage = ({
 	source,
 	width,
 	height,
-}: BackgroundImageType) => {
+}: IBackgroundImage) => {
 	const baseStyle = 'opacity-30 blur-sm fixed -z-10 right-0 bottom-1';
 	return (
 		<div className="flex-row-reverse flex">

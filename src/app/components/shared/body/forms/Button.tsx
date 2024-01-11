@@ -1,4 +1,4 @@
-import { type ButtonType } from '@/app/components/types';
+import { type IButton } from '@/app/components/types';
 
 import Image from 'next/image';
 
@@ -13,7 +13,7 @@ export const Button = ({
 	onClick,
 	isActive = true,
 	hoverColor,
-}: ButtonType) => {
+}: IButton) => {
 	return (
 		<button
 			onClick={() => {
