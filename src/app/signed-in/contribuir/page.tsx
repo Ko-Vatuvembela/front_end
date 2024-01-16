@@ -5,10 +5,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Grammar } from '@/app/components/shared/body/Grammar';
 import { Quotes } from '@/app/components/shared/body/Quotes';
 import { Dictionary } from '@/app/components/shared/body/Dictionary';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Back } from '@/app/components/shared/Back';
 
-export default function NewComponent() {
+export default function NewComponent () {
 	const paramList = ['dicionario', 'gramatica', 'proverbio'];
 	const router = useRouter();
 	const tipo = useSearchParams().get('tipo');
