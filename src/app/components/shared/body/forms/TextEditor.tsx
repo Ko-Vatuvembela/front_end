@@ -27,9 +27,12 @@ const TextEditor = () => {
 			<section className="my-10">
 				{text &&
 					parse(String(text), {
-						replace: ({ attribs, name }) => {
-							if (name) {
-								attribs.class = styles.get(name);
+						replace: (elem) => {
+							if (elem.type === 'tag') {
+								const { attribs, name } = elem;
+								Object.assign(attribs, {
+									class: styles.get(name),
+								});
 							}
 						},
 					})}
@@ -39,3 +42,12 @@ const TextEditor = () => {
 };
 
 export default TextEditor;
+
+// replace: (elem) => {
+// 							if (elem instanceof Element) {
+// 								const { attribs, name } = elem;
+// 								if (name) {
+// 									attribs.class = styles.get(name) as string;
+// 								}
+// 							}
+// 						},
