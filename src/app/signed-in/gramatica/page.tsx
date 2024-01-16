@@ -12,15 +12,17 @@ import {
 } from '@/app/components/shared/resources';
 import FetchRequest from '@/app/provider/api';
 import { Back } from '@/app/components/shared/Back';
+import { Add } from '@/app/components/shared/Add';
 
 const request = new FetchRequest();
 
-export default function NewComponent() {
-	const h1 = 'text-3xl text-center font-light my-8 max-md-text-center';
+export default function NewComponent () {
+	const h1 = 'text-3xl text-center my-8 max-md-text-center';
 	const unselectedStyle =
 		'm-2 bg-slate-500 text-white p-3 rounded-lg border border-slate-500 hover:bg-white hover:cursor-pointer hover:text-slate-500';
 	const selectedStyle =
 		'm-2 bg-primaryBlue text-white p-3 rounded-lg border border-primaryBlue hover:cursor-pointer hover:bg-white hover:text-primaryBlue';
+	const contributionType = 'gramatica';
 
 	const [langs, updateList] = useState<ILanguage[]>([]);
 
@@ -118,6 +120,10 @@ export default function NewComponent() {
 							);
 						})}
 					</div>
+					<Add
+						type={contributionType}
+						url={`/signed-in/contribuir?tipo=${contributionType}`}
+					/>
 					<Back />
 				</div>
 			</LayoutPattern>

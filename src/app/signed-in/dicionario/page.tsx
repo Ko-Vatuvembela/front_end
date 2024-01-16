@@ -37,7 +37,7 @@ const letters = [
 	'Z',
 ];
 
-export default function Dicionario() {
+export default function Dicionario () {
 	const router = useRouter();
 	const [langs, updateList] = useState<ILanguage[]>([]);
 	const [languageID, setLanguageID] = useState<string>('');

@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/member-delimiter-style */
 import { type ReactNode } from 'react';
 
+export const alternatives: string = 'dicionario' | 'gramatica' | 'proverbio';
+
 export interface IInput {
 	placeholder: string;
 	name: string;
@@ -71,4 +73,8 @@ export interface IPost {
 	conteudo: string;
 	utilizadorFK: number;
 	linguaFK: number;
+}
+export interface IAdd {
+	url: string;
+	type: alternatives;
 }
