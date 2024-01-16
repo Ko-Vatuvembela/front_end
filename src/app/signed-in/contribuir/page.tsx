@@ -8,7 +8,7 @@ import { Dictionary } from '@/app/components/shared/body/Dictionary';
 import { useEffect } from 'react';
 import { Back } from '@/app/components/shared/Back';
 
-export default function NewComponent() {
+export default function NewComponent () {
 	const paramList = ['dicionario', 'gramatica', 'proverbio'];
 
 	const router = useRouter();
