@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { type IMenuOption } from '@/app/components/types';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 
-export default function HomePage() {
+export default function HomePage () {
 	// const userData = useContext(AuthContext);
 	const IMAGE_DIR = '/images/';
 	const width = 125;

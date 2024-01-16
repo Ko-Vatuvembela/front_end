@@ -2,11 +2,11 @@
 import { type IUser } from '../components/types';
 
 export default class SessionProvider {
-	setToken(tokens: string): void {
+	setToken (tokens: string): void {
 		sessionStorage.setItem('token', tokens);
 	}
 
-	isSession(): boolean {
+	isSession (): boolean {
 		try {
 			if (typeof window !== 'undefined') {
 				return sessionStorage.length > 0;
@@ -17,13 +17,13 @@ export default class SessionProvider {
 		}
 	}
 
-	setUserData(userData: IUser): void {
+	setUserData (userData: IUser): void {
 		if (typeof window !== 'undefined') {
 			sessionStorage.setItem('userData', JSON.stringify(userData));
 		}
 	}
 
-	getUserData(): IUser | null {
+	getUserData (): IUser | null {
 		if (typeof window !== 'undefined') {
 			if (this.isSession()) {
 				return Object(
@@ -35,7 +35,7 @@ export default class SessionProvider {
 		return null;
 	}
 
-	updateUserData(updateData: IUser): void {
+	updateUserData (updateData: IUser): void {
 		if (typeof window !== 'undefined') {
 			if (this.isSession()) {
 				sessionStorage.setItem('userData', JSON.stringify(updateData));
@@ -43,13 +43,13 @@ export default class SessionProvider {
 		}
 	}
 
-	deleteSession(): void {
+	deleteSession (): void {
 		if (typeof window !== 'undefined') {
 			sessionStorage.clear();
 		}
 	}
 
-	isAuthenticated(): boolean {
+	isAuthenticated (): boolean {
 		if (typeof window !== 'undefined') {
 			return this.isSession();
 		}

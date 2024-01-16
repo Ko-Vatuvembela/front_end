@@ -3,7 +3,7 @@ import { AuthProvider } from '@/app/context/AuthProvider';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 import { type IPost } from '@/app/components/types';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { OK, UNAUTHORIZED } from '@/app/components/shared/resources';
 import FetchRequest from '@/app/provider/api';
 import { Back } from '@/app/components/shared/Back';
@@ -11,8 +11,7 @@ import { NoContent } from '@/app/components/shared/body/NoContent';
 
 const request = new FetchRequest();
 
-export default function NewComponent() {
-	const h1 = 'text-3xl text-center font-light my-8 max-md-text-center';
+export default function NewComponent () {
 	const router = useRouter();
 	const categoria = useSearchParams().get('categoria');
 	const languageID = useSearchParams().get('lingua');

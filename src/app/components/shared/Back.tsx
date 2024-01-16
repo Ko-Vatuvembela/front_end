@@ -6,17 +6,20 @@ const SIZE = 48;
 export const Back = () => {
 	const router = useRouter();
 	return (
-		<div className="relative left-0">
+		<div
+			className="flex hover:cursor-pointer w-fit scale-100 duration-500  hover:scale-110 ease-in-out my-1"
+			onClick={() => {
+				router.back();
+			}}
+		>
 			<Image
-				className="scale-75 duration-500 hover:cursor-pointer hover:scale-100 ease-in-out"
+				className=""
 				src={'/images/voltar.svg'}
 				width={SIZE}
 				height={SIZE}
-				alt="Back"
-				onClick={() => {
-					router.back();
-				}}
+				alt="Voltar"
 			/>
+			<span className="mt-3 mx-1">Vutuka</span>
 		</div>
 	);
 };
