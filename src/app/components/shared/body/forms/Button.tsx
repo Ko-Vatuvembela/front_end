@@ -5,14 +5,14 @@ import Image from 'next/image';
 export const Button = ({
 	style,
 	text,
-	textColor,
+	textColor = 'text-white',
 	imageSide,
 	image,
-	backgroundColor,
+	backgroundColor = 'bg-primaryBlue',
 	id,
 	onClick,
 	isActive = true,
-	hoverColor,
+	hoverColor = 'hover:bg-secondaryBlue',
 }: IButton) => {
 	return (
 		<button
