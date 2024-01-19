@@ -1,11 +1,13 @@
 'use client';
-import { FormEvent, useEffect, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { InputText } from './InputText';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from '../../../../../../ckeditor5/build/ckeditor';
 import parse from 'html-react-parser';
 import { h1 } from '../../resources';
+import { Livro, Artigo, Tese } from './TipoBibliografia';
 import { Button } from './Button';
+import { SelectBox } from './Select';
 
 const TextEditor = () => {
 	const [conteudo, setConteudo] = useState<string>('');
@@ -13,6 +15,7 @@ const TextEditor = () => {
 	const [categoria, setCategoria] = useState<string>('Fonologia');
 	const [nomeAutor, setNomeAutor] = useState<string>('');
 	const [sobrenomeAutor, setSobrenomeAutor] = useState<string>('');
+	const [tipo, setTipo] = useState<string>('Artigo');
 
 	useEffect(() => {
 		if (!conteudo.length) {
@@ -46,7 +49,7 @@ const TextEditor = () => {
 				submitData(e);
 			}}
 		>
-			<fieldset className="p-3 border border-black">
+			<fieldset className="p-3 border border-black rounded-lg text-primaryBlue">
 				<legend>Informações sobre o conteúdo</legend>
 				<InputText
 					isRequired={true}
@@ -59,22 +62,19 @@ const TextEditor = () => {
 					type="text"
 				/>
 				<section className="my-4">
-					<label htmlFor="categoria" className="my-1">
-						Selecione a categoria
-					</label>
-					<p></p>
-					<select
-						name="categoria"
-						id="categoria"
-						className="p-3 border rounded-lg"
+					<SelectBox
+						titulo={'Selecione a categoria'}
 						onChange={(e) => {
-							setCategoria(e.target.value);
+							setCategoria(e);
 						}}
-					>
-						<option value="Fonologia">Fonologia</option>
-						<option value="Morfologia">Morfologia</option>
-						<option value="Sintaxe">Sintaxe</option>
-					</select>
+						name={'dd'}
+						values={[
+							'Fonologia',
+							'Morfologia',
+							'Sintaxe',
+							'Diversos',
+						]}
+					/>
 				</section>
 
 				<CKEditor
@@ -85,7 +85,7 @@ const TextEditor = () => {
 					}}
 				/>
 			</fieldset>
-			<fieldset className="p-3 border border-black">
+			<fieldset className="p-3 border border-black rounded-lg my-2 text-primaryBlue">
 				<legend>Informações bilbiográficas</legend>
 				<section className="my-2">
 					<InputText
@@ -108,6 +108,17 @@ const TextEditor = () => {
 						}}
 						type="text"
 					/>
+					<SelectBox
+						name="tipo"
+						titulo="Fonte"
+						values={['Artigo', 'Dissertação', 'Livro']}
+						onChange={(e) => {
+							setTipo(e);
+						}}
+					/>
+					{tipo === 'Artigo' && <Artigo />}
+					{tipo === 'Dissertação' && <Tese />}
+					{tipo === 'Livro' && <Livro />}
 				</section>
 			</fieldset>
 
