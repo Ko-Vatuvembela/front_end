@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-delimiter-style */
-import { type ReactNode } from 'react';
+import { type ChangeEvent, type ReactNode } from 'react';
 
 export const alternatives: string = 'dicionario' | 'gramatica' | 'proverbio';
 
@@ -7,7 +7,7 @@ export interface IInput {
 	placeholder: string;
 	name: string;
 	value?: string;
-	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+	onChange: (e: string) => void;
 	label: string;
 	isRequired: boolean;
 	optinalStyle?: string;
@@ -77,4 +77,11 @@ export interface IPost {
 export interface IAdd {
 	url: string;
 	type: alternatives;
+}
+export interface ISelectBox {
+	values: string[];
+	name: string;
+	titulo: string;
+	onChange: (e: string) => void;
+	style?: string;
 }
