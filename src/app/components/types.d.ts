@@ -110,10 +110,13 @@ export interface IBibliografia {
 }
 export interface IArtigo {
 	numeroPaginas: number;
+	setNumeroPaginas: (e: string) => void;
 }
 export interface ITese {
 	grau: string;
+	setGrau: (e: string) => void;
 	nomeInstituicao: string;
+	setNomeInstituicao: (e: string) => void;
 }
 export interface ILivro {
 	editora: string;

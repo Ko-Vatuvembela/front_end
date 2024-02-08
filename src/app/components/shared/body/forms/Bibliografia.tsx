@@ -1,6 +1,13 @@
 import { InputText } from './InputText';
 import { InputNumber } from './InputNumber';
-import { type ILivro, type IBibliografia } from '@/app/components/types';
+import {
+	type ILivro,
+	type IBibliografia,
+	type ITese,
+	type IArtigo,
+} from '@/app/components/types';
+import { SelectBox } from './Select';
+import { niveis } from '../../resources';
 
 const MIN = 1800;
 
@@ -94,5 +101,40 @@ export const Livro = ({
 	);
 };
 
-export const Artigo = () => <div className="">Artigo</div>;
-export const Tese = () => <div className="">Tese</div>;
+export const Artigo = ({ numeroPaginas, setNumeroPaginas }: IArtigo) => (
+	<div className="">
+		<InputNumber
+			isRequired={true}
+			label="Número de páginas"
+			max={new Date().getFullYear()}
+			min={10}
+			step={1}
+			value={String(numeroPaginas)}
+			name="numeroPaginas"
+			onChange={setNumeroPaginas}
+		/>
+	</div>
+);
+export const Tese = ({
+	grau,
+	nomeInstituicao,
+	setGrau,
+	setNomeInstituicao,
+}: ITese) => (
+	<div className="">
+		<SelectBox
+			values={niveis}
+			name="grau"
+			onChange={setGrau}
+			titulo="Grau acadêmico"
+		/>
+		<InputText
+			isRequired={true}
+			label="Nome da Instituição de Ensino"
+			type="text"
+			onChange={setNomeInstituicao}
+			name="nomeInstituicao"
+			placeholder={nomeInstituicao}
+		/>
+	</div>
+);
