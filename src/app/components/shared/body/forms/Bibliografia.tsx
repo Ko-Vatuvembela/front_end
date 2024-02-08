@@ -1,6 +1,6 @@
 import { InputText } from './InputText';
 import { InputNumber } from './InputNumber';
-import { type IBibliografia } from '@/app/components/types';
+import { type ILivro, type IBibliografia } from '@/app/components/types';
 
 const MIN = 1800;
 
@@ -55,6 +55,44 @@ export const BibliografiaBasica = ({
 		</div>
 	);
 };
-export const Livro = () => <div className="">LIVRO</div>;
+export const Livro = ({
+	edicao,
+	setEdicao,
+	editora,
+	setEditora,
+	localPublicacao,
+	setLocalPublicacao,
+}: ILivro) => {
+	return (
+		<div className="">
+			<InputText
+				isRequired={true}
+				label="Editora"
+				type="text"
+				onChange={setEditora}
+				name="editora"
+				placeholder={editora}
+			/>
+			<InputNumber
+				isRequired={true}
+				label="Edição"
+				min={1}
+				step={1}
+				value={String(edicao)}
+				name="edicao"
+				onChange={setEdicao}
+			/>
+			<InputText
+				isRequired={true}
+				label="Local de publicação"
+				type="text"
+				onChange={setLocalPublicacao}
+				name="localPublicacao"
+				placeholder={localPublicacao}
+			/>
+		</div>
+	);
+};
+
 export const Artigo = () => <div className="">Artigo</div>;
 export const Tese = () => <div className="">Tese</div>;

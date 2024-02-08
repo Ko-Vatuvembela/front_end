@@ -5,7 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from '../../../../../../ckeditor5/build/ckeditor';
 import parse from 'html-react-parser';
 import { h1 } from '../../resources';
-import { Livro, Artigo, Tese, BibliografiaBasica } from './TipoBibliografia';
+import { Livro, Artigo, Tese, BibliografiaBasica } from './Bibliografia';
 import { Button } from './Button';
 import { SelectBox } from './Select';
 
@@ -18,6 +18,9 @@ const TextEditor = () => {
 	const [nomeAutor, setNomeAutor] = useState<string>('');
 	const [sobrenomeAutor, setSobrenomeAutor] = useState<string>('');
 	const [tipo, setTipo] = useState<string>('Artigo');
+	const [edicao, setEdicao] = useState<string>('1');
+	const [editora, setEditora] = useState<string>('');
+	const [localPublicacao, setLocalPublicacao] = useState<string>('');
 
 	useEffect(() => {
 		if (!conteudo.length) {
@@ -28,6 +31,7 @@ const TextEditor = () => {
 		}
 	}, [conteudo, titulo]);
 
+	console.log(categoria);
 	const styles = new Map<string, string>();
 
 	styles.set('h2', 'text-4xl font-bold');
@@ -40,8 +44,6 @@ const TextEditor = () => {
 	const submitData = async (e: FormEvent<HTMLElement>) => {
 		e.preventDefault();
 	};
-	console.log(tituloFonte, ano, nomeAutor, categoria);
-
 	return (
 		<form
 			method="post"
@@ -132,7 +134,16 @@ const TextEditor = () => {
 
 					{tipo === 'Artigo' && <Artigo />}
 					{tipo === 'Dissertação' && <Tese />}
-					{tipo === 'Livro' && <Livro />}
+					{tipo === 'Livro' && (
+						<Livro
+							edicao={Number(edicao)}
+							editora={editora}
+							localPublicacao={localPublicacao}
+							setEdicao={setEdicao}
+							setEditora={setEditora}
+							setLocalPublicacao={setLocalPublicacao}
+						/>
+					)}
 				</section>
 			</fieldset>
 
