@@ -23,10 +23,18 @@ export const InputNumber = ({
 				type="number"
 				onChange={(e) => {
 					const value = Number.parseInt(e.currentTarget.value);
-					if (value < min || value > max) {
-						onChange(String(max));
+					if (max !== undefined) {
+						if (value < min || value > max) {
+							onChange(String(max));
+						} else {
+							onChange(String(value));
+						}
 					} else {
-						onChange(String(value));
+						if (min < 1) {
+							onChange('1');
+						} else {
+							onChange(String(value));
+						}
 					}
 				}}
 				name={name}

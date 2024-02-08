@@ -21,7 +21,7 @@ export interface IInputNumber {
 	isRequired: boolean;
 	optinalStyle?: string;
 	min: number;
-	max: number;
+	max?: number;
 	step: number;
 }
 
@@ -107,4 +107,19 @@ export interface IBibliografia {
 	setTitulo: (e: string) => void;
 	setSobrenomeAutor: (e: string) => void;
 	setAno: (e: string) => void;
+}
+export interface IArtigo {
+	numeroPaginas: number;
+}
+export interface ITese {
+	grau: string;
+	nomeInstituicao: string;
+}
+export interface ILivro {
+	editora: string;
+	setEditora: (e: string) => void;
+	localPublicacao: string;
+	setLocalPublicacao: (e: string) => void;
+	edicao: number;
+	setEdicao: (e: string) => void;
 }
