@@ -4,7 +4,7 @@ import { InputText } from './InputText';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from '../../../../../../ckeditor5/build/ckeditor';
 import parse from 'html-react-parser';
-import { h1 } from '../../resources';
+import { h1, niveis } from '../../resources';
 import { Livro, Artigo, Tese, BibliografiaBasica } from './Bibliografia';
 import { Button } from './Button';
 import { SelectBox } from './Select';
@@ -21,6 +21,9 @@ const TextEditor = () => {
 	const [edicao, setEdicao] = useState<string>('1');
 	const [editora, setEditora] = useState<string>('');
 	const [localPublicacao, setLocalPublicacao] = useState<string>('');
+	const [grau, setGrau] = useState<string>(niveis[0]);
+	const [nomeInstituicao, setNomeInstituicao] = useState<string>('');
+	const [numeroPaginas, setNumeroPaginas] = useState<string>('10');
 
 	useEffect(() => {
 		if (!conteudo.length) {
@@ -30,8 +33,8 @@ const TextEditor = () => {
 			setTitulo('[Defina o título]');
 		}
 	}, [conteudo, titulo]);
-
 	console.log(categoria);
+
 	const styles = new Map<string, string>();
 
 	styles.set('h2', 'text-4xl font-bold');
@@ -115,7 +118,7 @@ const TextEditor = () => {
 					<SelectBox
 						name="tipo"
 						titulo="Fonte"
-						values={['Artigo', 'Dissertação', 'Livro']}
+						values={['Artigo', 'Tese', 'Livro']}
 						onChange={(e) => {
 							setTipo(e);
 						}}
@@ -132,8 +135,20 @@ const TextEditor = () => {
 						setTitulo={setTituloFonte}
 					/>
 
-					{tipo === 'Artigo' && <Artigo />}
-					{tipo === 'Dissertação' && <Tese />}
+					{tipo === 'Artigo' && (
+						<Artigo
+							numeroPaginas={Number(numeroPaginas)}
+							setNumeroPaginas={setNumeroPaginas}
+						/>
+					)}
+					{tipo === 'Tese' && (
+						<Tese
+							grau={grau}
+							nomeInstituicao={nomeInstituicao}
+							setGrau={setGrau}
+							setNomeInstituicao={setNomeInstituicao}
+						/>
+					)}
 					{tipo === 'Livro' && (
 						<Livro
 							edicao={Number(edicao)}
