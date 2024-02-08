@@ -5,13 +5,15 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from '../../../../../../ckeditor5/build/ckeditor';
 import parse from 'html-react-parser';
 import { h1 } from '../../resources';
-import { Livro, Artigo, Tese } from './TipoBibliografia';
+import { Livro, Artigo, Tese, BibliografiaBasica } from './TipoBibliografia';
 import { Button } from './Button';
 import { SelectBox } from './Select';
 
 const TextEditor = () => {
 	const [conteudo, setConteudo] = useState<string>('');
+	const [ano, setAno] = useState<number | string>(new Date().getFullYear());
 	const [titulo, setTitulo] = useState<string>('');
+	const [tituloFonte, setTituloFonte] = useState<string>('');
 	const [categoria, setCategoria] = useState<string>('Fonologia');
 	const [nomeAutor, setNomeAutor] = useState<string>('');
 	const [sobrenomeAutor, setSobrenomeAutor] = useState<string>('');
@@ -37,8 +39,8 @@ const TextEditor = () => {
 
 	const submitData = async (e: FormEvent<HTMLElement>) => {
 		e.preventDefault();
-		console.log(titulo, conteudo, categoria);
 	};
+	console.log(tituloFonte, ano, nomeAutor, categoria);
 
 	return (
 		<form
@@ -116,6 +118,18 @@ const TextEditor = () => {
 							setTipo(e);
 						}}
 					/>
+					<BibliografiaBasica
+						tipo={tipo}
+						setAno={setAno}
+						ano={Number(ano)}
+						nomeAutor={nomeAutor}
+						setNomeAutor={setNomeAutor}
+						sobrenomeAutor={sobrenomeAutor}
+						setSobrenomeAutor={setSobrenomeAutor}
+						titulo={tituloFonte}
+						setTitulo={setTituloFonte}
+					/>
+
 					{tipo === 'Artigo' && <Artigo />}
 					{tipo === 'Dissertação' && <Tese />}
 					{tipo === 'Livro' && <Livro />}
@@ -142,12 +156,3 @@ const TextEditor = () => {
 };
 
 export default TextEditor;
-
-// replace: (elem) => {
-// 							if (elem instanceof Element) {
-// 								const { attribs, name } = elem;
-// 								if (name) {
-// 									attribs.class = styles.get(name) as string;
-// 								}
-// 							}
-// 						},

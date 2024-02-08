@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-delimiter-style */
-import { type ChangeEvent, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 export const alternatives: string = 'dicionario' | 'gramatica' | 'proverbio';
 
@@ -13,18 +13,29 @@ export interface IInput {
 	optinalStyle?: string;
 	type: 'email' | 'password' | 'text';
 }
+export interface IInputNumber {
+	name: string;
+	value?: string;
+	onChange: (e: string) => void;
+	label: string;
+	isRequired: boolean;
+	optinalStyle?: string;
+	min: number;
+	max: number;
+	step: number;
+}
 
 export interface IButton {
 	text: string;
 	style?: string;
-	backgroundColor: string;
-	textColor: string;
+	backgroundColor?: string;
+	textColor?: string;
 	onClick?: () => void | Promise<void>;
 	image?: string;
 	imageSide?: 'left' | 'right';
 	id?: string;
 	isActive?: boolean;
-	hoverColor: string;
+	hoverColor?: string;
 }
 export interface ILink {
 	text: string;
@@ -84,4 +95,16 @@ export interface ISelectBox {
 	titulo: string;
 	onChange: (e: string) => void;
 	style?: string;
+}
+export interface IBibliografia {
+	titulo: string;
+	tipo: string;
+	nomeAutor: string;
+	sobrenomeAutor: string;
+	ano: number;
+	tipo: string;
+	setNomeAutor: (e: string) => void;
+	setTitulo: (e: string) => void;
+	setSobrenomeAutor: (e: string) => void;
+	setAno: (e: string) => void;
 }
