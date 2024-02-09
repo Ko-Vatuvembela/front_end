@@ -1,18 +1,28 @@
 'use client';
-import { type FormEvent, useEffect, useState } from 'react';
+import { type FormEvent, useEffect, useState, useRef } from 'react';
 import { InputText } from './InputText';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from '../../../../../../ckeditor5/build/ckeditor';
 import parse from 'html-react-parser';
-import { h1, niveis } from '../../resources';
+import { OK, UNAUTHORIZED, CREATED, h1, niveis } from '../../resources';
 import { Livro, Artigo, Tese, BibliografiaBasica } from './Bibliografia';
 import { Button } from './Button';
 import { SelectBox } from './Select';
+import FetchRequest from '@/app/provider/api';
+import { type ILanguage } from '@/app/components/types';
+import { useRouter } from 'next/navigation';
+
+const request = new FetchRequest();
 
 const TextEditor = () => {
+	const router = useRouter();
+
 	const [conteudo, setConteudo] = useState<string>('');
+
+	const [languages, setLanguages] = useState<string[]>([]);
+	const [selectedLanguage, setSelectedLanguage] = useState<string>();
 	const [ano, setAno] = useState<number | string>(new Date().getFullYear());
-	const [titulo, setTitulo] = useState<string>('');
+	const [tituloPostagem, setTituloPostagem] = useState<string>('');
 	const [tituloFonte, setTituloFonte] = useState<string>('');
 	const [categoria, setCategoria] = useState<string>('Fonologia');
 	const [nomeAutor, setNomeAutor] = useState<string>('');
@@ -24,16 +34,39 @@ const TextEditor = () => {
 	const [grau, setGrau] = useState<string>(niveis[0]);
 	const [nomeInstituicao, setNomeInstituicao] = useState<string>('');
 	const [numeroPaginas, setNumeroPaginas] = useState<string>('10');
+	const languageHash = useRef<Map<string, number>>();
 
 	useEffect(() => {
+		(async () => {
+			try {
+				const req = await request.get('lingua');
+
+				if (req.status === UNAUTHORIZED) {
+					sessionStorage.clear();
+					router.replace('/');
+				} else if (req.status === OK) {
+					const list = (await req.json()) as ILanguage[];
+					const hash = new Map<string, number>();
+					setSelectedLanguage(list[0].lingua);
+					const tmpArr: string[] = [];
+					for (const elem of list) {
+						tmpArr.push(elem.lingua);
+						hash.set(elem.lingua, elem.id);
+					}
+					setLanguages(tmpArr);
+					languageHash.current = hash;
+				}
+			} catch (e) {
+				router.replace('/error/500');
+			}
+		})();
 		if (!conteudo.length) {
 			setConteudo('[Escreva alguma coisa]');
 		}
-		if (!titulo.length) {
-			setTitulo('[Defina o título]');
+		if (!tituloPostagem.length) {
+			setTituloPostagem('[Defina o título]');
 		}
-	}, [conteudo, titulo]);
-	console.log(categoria);
+	}, [conteudo, tituloPostagem]);
 
 	const styles = new Map<string, string>();
 
@@ -46,7 +79,40 @@ const TextEditor = () => {
 
 	const submitData = async (e: FormEvent<HTMLElement>) => {
 		e.preventDefault();
+		const data = {
+			conteudo,
+			tituloPostagem,
+			bibliografia: {
+				tipo,
+				titulo: tituloFonte,
+				nomeAutor,
+				sobrenomeAutor,
+				localPublicacao,
+				editora,
+				edicao,
+				ano,
+				grau,
+				nomeInstituicao,
+				numeroPaginas,
+			},
+			linguaFK: languageHash.current?.get(selectedLanguage as string),
+			categoria,
+		};
+		try {
+			const response = await request.post('post', data);
+			if (response) {
+				if (response.status === CREATED) {
+					alert('Postagem criada com sucesso. ');
+					// PRECISA REDIRECIONAR PARA VER A POSTAGEM
+					router.back();
+				}
+				console.log(response.status);
+			}
+		} catch (e) {
+			console.error(e);
+		}
 	};
+
 	return (
 		<form
 			method="post"
@@ -64,17 +130,27 @@ const TextEditor = () => {
 					name="title"
 					placeholder="Escreva o título da postagem"
 					onChange={(e) => {
-						setTitulo(e);
+						setTituloPostagem(e);
 					}}
 					type="text"
 				/>
+				<section className="my-4">
+					<SelectBox
+						titulo={'Selecione a língua'}
+						onChange={(e) => {
+							setSelectedLanguage(e);
+						}}
+						name={'lingua_fk'}
+						values={languages}
+					/>
+				</section>
 				<section className="my-4">
 					<SelectBox
 						titulo={'Selecione a categoria'}
 						onChange={(e) => {
 							setCategoria(e);
 						}}
-						name={'dd'}
+						name={'categoria'}
 						values={[
 							'Fonologia',
 							'Morfologia',
@@ -95,34 +171,6 @@ const TextEditor = () => {
 			<fieldset className="p-3 border border-black rounded-lg my-2 text-primaryBlue">
 				<legend>Informações bilbiográficas</legend>
 				<section className="my-2">
-					<InputText
-						isRequired={true}
-						label="Nome do autor"
-						name="nomeAutor"
-						placeholder="Escreva o nome do autor do texto"
-						onChange={(e) => {
-							setNomeAutor(e);
-						}}
-						type="text"
-					/>
-					<InputText
-						isRequired={true}
-						label="Sobrenome do autor"
-						name="sobrenomeAutor"
-						placeholder="Escreva o sobrenome do autor do texto"
-						onChange={(e) => {
-							setSobrenomeAutor(e);
-						}}
-						type="text"
-					/>
-					<SelectBox
-						name="tipo"
-						titulo="Fonte"
-						values={['Artigo', 'Tese', 'Livro']}
-						onChange={(e) => {
-							setTipo(e);
-						}}
-					/>
 					<BibliografiaBasica
 						tipo={tipo}
 						setAno={setAno}
@@ -133,6 +181,14 @@ const TextEditor = () => {
 						setSobrenomeAutor={setSobrenomeAutor}
 						titulo={tituloFonte}
 						setTitulo={setTituloFonte}
+					/>
+					<SelectBox
+						name="tipo"
+						titulo="Fonte"
+						values={['Artigo', 'Tese', 'Livro']}
+						onChange={(e) => {
+							setTipo(e);
+						}}
 					/>
 
 					{tipo === 'Artigo' && (
@@ -163,7 +219,7 @@ const TextEditor = () => {
 			</fieldset>
 
 			<section className="my-10 w-full overflow-hidden">
-				<h1 className={h1}>{titulo}</h1>
+				<h1 className={h1}>{tituloPostagem}</h1>
 				{conteudo &&
 					parse(String(conteudo), {
 						replace: (elem) => {

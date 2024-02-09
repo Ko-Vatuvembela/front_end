@@ -56,6 +56,7 @@ export const categorias = [
 
 export const ALL_LANGUAGES = 200;
 export const UNAUTHORIZED = 401;
+export const CREATED = 201;
 export const INTERNAL_SERVER_ERROR = 500;
 export const OK = 200;
 export const UNPROCESSABLE_ENTITY = 422;
