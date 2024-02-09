@@ -11,7 +11,8 @@ export const InputNumber = ({
 	isRequired,
 	onChange,
 }: IInputNumber) => {
-	const inputStyle = 'border rounded-[14px] pl-5 py-[14px] bg-transparent ';
+	const inputStyle =
+		'border rounded-[14px] pl-5 py-[14px] bg-transparent w-[10rem] ';
 	const labelStyle = 'text-primaryBlue text-[14px] font-semibold';
 	return (
 		<div className="mb-4">
