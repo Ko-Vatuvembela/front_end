@@ -4,7 +4,14 @@ import { InputText } from './InputText';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from '../../../../../../ckeditor5/build/ckeditor';
 import parse from 'html-react-parser';
-import { OK, UNAUTHORIZED, CREATED, h1, niveis } from '../../resources';
+import {
+	OK,
+	UNAUTHORIZED,
+	CREATED,
+	h1,
+	niveis,
+	INTERNAL_SERVER_ERROR_PAGE,
+} from '../../resources';
 import { Livro, Artigo, Tese, BibliografiaBasica } from './Bibliografia';
 import { Button } from './Button';
 import { SelectBox } from './Select';
@@ -16,9 +23,7 @@ const request = new FetchRequest();
 
 const TextEditor = () => {
 	const router = useRouter();
-
 	const [conteudo, setConteudo] = useState<string>('');
-
 	const [languages, setLanguages] = useState<string[]>([]);
 	const [selectedLanguage, setSelectedLanguage] = useState<string>();
 	const [ano, setAno] = useState<number | string>(new Date().getFullYear());
@@ -57,7 +62,7 @@ const TextEditor = () => {
 					languageHash.current = hash;
 				}
 			} catch (e) {
-				router.replace('/error/500');
+				router.replace(INTERNAL_SERVER_ERROR_PAGE);
 			}
 		})();
 		if (!conteudo.length) {

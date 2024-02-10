@@ -4,9 +4,14 @@ import { LayoutPattern } from '@/app/public/LayoutPattern';
 import { type IPost } from '@/app/components/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { OK, UNAUTHORIZED } from '@/app/components/shared/resources';
+import {
+	INTERNAL_SERVER_ERROR_PAGE,
+	OK,
+	UNAUTHORIZED,
+} from '@/app/components/shared/resources';
 import FetchRequest from '@/app/provider/api';
 import { Back } from '@/app/components/shared/Back';
+import { Post } from '@/app/components/shared/body/Posts';
 import { NoContent } from '@/app/components/shared/body/NoContent';
 
 const request = new FetchRequest();
@@ -14,7 +19,9 @@ const request = new FetchRequest();
 export default function NewComponent () {
 	const router = useRouter();
 	const categoria = useSearchParams().get('categoria');
-	const languageID = useSearchParams().get('lingua');
+	const languageID = useSearchParams().get('languageID');
+	const languageName = useSearchParams().get('languageName');
+
 	const [posts, setPosts] = useState<IPost[]>([]);
 
 	useEffect(() => {
@@ -28,11 +35,14 @@ export default function NewComponent () {
 					sessionStorage.clear();
 					router.replace('/');
 				} else if (req.status === OK) {
-					const list = await req.json();
+					const list = (await req.json()) as IPost[];
+					console.log(list);
 					setPosts(list);
+				} else {
+					router.replace('/not-found');
 				}
 			} catch (e) {
-				router.replace('/error/500');
+				router.replace(INTERNAL_SERVER_ERROR_PAGE);
 			}
 		})();
 	}, []);
@@ -40,10 +50,24 @@ export default function NewComponent () {
 	return (
 		<AuthProvider>
 			<LayoutPattern backgroundImage="vaso">
-				<div>
-					{posts.length === 0 && <NoContent />}
-					<Back />
+				<div className="text-gray-700">
+					<h1 className="text-4xl font-bold">
+						{categoria} em {languageName}
+					</h1>
+					<hr />
+					<div className="mt-3 mb-8">
+						{posts.length === 0
+? (
+							<NoContent />
+						)
+: (
+							posts.map((value, index) => (
+								<Post {...value} key={index} />
+							))
+						)}
+					</div>
 				</div>
+				<Back />
 			</LayoutPattern>
 		</AuthProvider>
 	);

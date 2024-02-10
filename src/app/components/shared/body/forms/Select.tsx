@@ -8,7 +8,9 @@ export const SelectBox = ({
 	style = 'p-3 border rounded-lg w-[10rem]',
 }: ISelectBox) => (
 	<>
-		<label htmlFor={name}>{titulo}</label>
+		<label className="my-1" htmlFor={name}>
+			{titulo}
+		</label>
 		<br />
 		<select
 			name={name}
