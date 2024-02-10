@@ -19,17 +19,10 @@ import { Button } from '@/app/components/shared/body/forms/Button';
 
 const request = new FetchRequest();
 
-/*
-setTimeout(() => {
-											const URL = `/signed-in/gramatica/categoria?categoria=${selectedCategory.current}&lingua=${selectedLanguage}&desc=${selectedLanguage}`;
-											router.push(URL);
-										}, 1000);
-*/
-export default function NewComponent () {
+export default function NewComponent() {
 	const languageHash = useRef<Map<string, number>>();
 	const hash = new Map<string, number>();
 	const contributionType = 'gramatica';
-	const [langs, updateList] = useState<ILanguage[]>([]);
 	const [selectedLanguage, updateLanguage] = useState('');
 	const [category, updateCategory] = useState(CATEGORIAS[0]);
 	const [languages, setLanguages] = useState<string[]>([]);
@@ -51,14 +44,12 @@ export default function NewComponent () {
 		(async () => {
 			try {
 				const req = await request.get('lingua');
-
 				if (req.status === UNAUTHORIZED) {
 					sessionStorage.clear();
 					router.replace('/');
 				} else if (req.status === OK) {
 					const list = (await req.json()) as ILanguage[];
-					updateList(list);
-					updateLanguage(langs[0].lingua);
+					updateLanguage(list[0].lingua);
 					const tmpArr: string[] = [];
 
 					for (const elem of list) {
