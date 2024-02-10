@@ -11,7 +11,7 @@ export const LayoutPattern = ({
 	return (
 		<div className={optionalStyle}>
 			<Header />
-			{children}
+			<div className="w-[90%] mx-auto">{children}</div>
 			<BackgroundImage
 				source={backgroundImage}
 				height={540}

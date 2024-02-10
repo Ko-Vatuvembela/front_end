@@ -16,9 +16,7 @@ export const Button = ({
 }: IButton) => {
 	return (
 		<button
-			onClick={() => {
-				isActive && onClick;
-			}}
+			onClick={onClick}
 			className={` ${style} ${isActive && 'hover:cursor-pointer'} ${
 				!isActive && 'opacity-50'
 			}  `}

@@ -6,7 +6,11 @@ import { useEffect, useState } from 'react';
 import FetchRequest from '@/app/provider/api';
 import { useRouter } from 'next/navigation';
 import { TextLink } from '@/app/components/shared/Link';
-import { OK, UNAUTHORIZED } from '@/app/components/shared/resources';
+import {
+	INTERNAL_SERVER_ERROR_PAGE,
+	OK,
+	UNAUTHORIZED,
+} from '@/app/components/shared/resources';
 const request = new FetchRequest();
 
 const letters = [
@@ -56,7 +60,7 @@ export default function Dicionario () {
 					setLanguageID(list[0].id);
 				}
 			} catch (e) {
-				router.replace('/error/500');
+				router.replace(INTERNAL_SERVER_ERROR_PAGE);
 			}
 		})();
 	}, []);

@@ -78,13 +78,6 @@ export interface ILanguage {
 	lingua: string;
 	id: number;
 }
-export interface IPost {
-	idPostagem: number;
-	categoria: string;
-	conteudo: string;
-	utilizadorFK: number;
-	linguaFK: number;
-}
 export interface IAdd {
 	url: string;
 	type: alternatives;
@@ -125,4 +118,34 @@ export interface ILivro {
 	setLocalPublicacao: (e: string) => void;
 	edicao: number;
 	setEdicao: (e: string) => void;
+}
+export interface IPost {
+	id_postagem: number;
+	titulo: string;
+}
+
+export interface IPostDetailed {
+	id_postagem: number;
+	categoria: string;
+	bibliografia_fk: number;
+	utilizador_fk: number;
+	lingua_fk: number;
+	conteudo: string;
+	titulo: string;
+	uid: {
+		nome: string;
+		sobrenome: string;
+		uid: number;
+	};
+	idLingua: {
+		lingua: string;
+		id: number;
+	};
+	idBibliografia: {
+		id_bibliografia: number;
+		nome_autor: string;
+		sobrenome_autor: string;
+		titulo: string;
+		ano: number;
+	};
 }
