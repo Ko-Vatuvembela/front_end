@@ -1,10 +1,10 @@
 import { InputText } from './InputText';
 import { InputNumber } from './InputNumber';
 import {
-	type ILivro,
+	type IFormLivro,
 	type IBibliografia,
-	type ITese,
-	type IArtigo,
+	type IFormTese,
+	type IFormArtigo,
 } from '@/app/components/types';
 import { SelectBox } from './Select';
 import { niveis } from '../../resources';
@@ -69,7 +69,7 @@ export const Livro = ({
 	setEditora,
 	localPublicacao,
 	setLocalPublicacao,
-}: ILivro) => {
+}: IFormLivro) => {
 	return (
 		<div className="">
 			<InputText
@@ -101,7 +101,7 @@ export const Livro = ({
 	);
 };
 
-export const Artigo = ({ numeroPaginas, setNumeroPaginas }: IArtigo) => (
+export const Artigo = ({ numeroPaginas, setNumeroPaginas }: IFormArtigo) => (
 	<div className="">
 		<InputNumber
 			isRequired={true}
@@ -120,7 +120,7 @@ export const Tese = ({
 	nomeInstituicao,
 	setGrau,
 	setNomeInstituicao,
-}: ITese) => (
+}: IFormTese) => (
 	<div className="">
 		<SelectBox
 			values={niveis}

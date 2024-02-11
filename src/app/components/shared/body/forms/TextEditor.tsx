@@ -11,6 +11,7 @@ import {
 	h1,
 	niveis,
 	INTERNAL_SERVER_ERROR_PAGE,
+	styles,
 } from '../../resources';
 import { Livro, Artigo, Tese, BibliografiaBasica } from './Bibliografia';
 import { Button } from './Button';
@@ -73,15 +74,6 @@ const TextEditor = () => {
 		}
 	}, [conteudo, tituloPostagem]);
 
-	const styles = new Map<string, string>();
-
-	styles.set('h2', 'text-4xl font-bold');
-	styles.set('h3', 'text-3xl font-bold');
-	styles.set('h4', 'text-2xl font-bold');
-	styles.set('ol', 'list-decimal');
-	styles.set('ul', 'list-disc');
-	styles.set('blockquote', 'italic');
-
 	const submitData = async (e: FormEvent<HTMLElement>) => {
 		e.preventDefault();
 		const data = {
@@ -111,7 +103,6 @@ const TextEditor = () => {
 					// PRECISA REDIRECIONAR PARA VER A POSTAGEM
 					router.back();
 				}
-				console.log(response.status);
 			}
 		} catch (e) {
 			console.error(e);

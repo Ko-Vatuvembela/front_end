@@ -101,17 +101,17 @@ export interface IBibliografia {
 	setSobrenomeAutor: (e: string) => void;
 	setAno: (e: string) => void;
 }
-export interface IArtigo {
+export interface IFormArtigo {
 	numeroPaginas: number;
 	setNumeroPaginas: (e: string) => void;
 }
-export interface ITese {
+export interface IFormTese {
 	grau: string;
 	setGrau: (e: string) => void;
 	nomeInstituicao: string;
 	setNomeInstituicao: (e: string) => void;
 }
-export interface ILivro {
+export interface IFormLivro {
 	editora: string;
 	setEditora: (e: string) => void;
 	localPublicacao: string;
@@ -125,27 +125,71 @@ export interface IPost {
 }
 
 export interface IPostDetailed {
-	id_postagem: number;
-	categoria: string;
-	bibliografia_fk: number;
-	utilizador_fk: number;
-	lingua_fk: number;
-	conteudo: string;
-	titulo: string;
-	uid: {
-		nome: string;
-		sobrenome: string;
-		uid: number;
+	data: [
+		{
+			id_postagem: number;
+			categoria: string;
+			bibliografia_fk: number;
+			utilizador_fk: number;
+			lingua_fk: number;
+			conteudo: string;
+			titulo: string;
+			uid: {
+				nome: string;
+				sobrenome: string;
+				uid: number;
+			};
+			idBibliografia: {
+				id_bibliografia: number;
+				nome_autor: string;
+				tipo: string;
+				sobrenome_autor: string;
+				titulo: string;
+				ano: number;
+			};
+		},
+	];
+	artigo?: {
+		bibliografia_fk: number;
+		numero_paginas: number;
 	};
-	idLingua: {
-		lingua: string;
-		id: number;
+	livro?: {
+		bibliografia_fk: number;
+		editora: string;
+		local_publicacao: string;
+		edicao: number;
 	};
+	tese?: {
+		bibliografia_fk: number;
+		grau: string;
+		nome_instituicao: string;
+	};
+}
+export interface IReferenciaBibiografica {
 	idBibliografia: {
 		id_bibliografia: number;
 		nome_autor: string;
+		tipo: string;
 		sobrenome_autor: string;
 		titulo: string;
 		ano: number;
 	};
+	livro?: ILivro;
+	artigo?: IArtigo;
+	tese?: ITese;
+}
+export interface IArtigo {
+	bibliografia_fk: number;
+	numero_paginas: number;
+}
+export interface ITese {
+	bibliografia_fk: number;
+	grau: string;
+	nome_instituicao: string;
+}
+export interface ILivro {
+	bibliografia_fk: number;
+	editora: string;
+	local_publicacao: string;
+	edicao: number;
 }

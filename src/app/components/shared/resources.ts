@@ -64,3 +64,11 @@ export const UNPROCESSABLE_ENTITY = 422;
 export const niveis = ['Bacharelado/Licenciatura', 'Mestrado', 'Doutorado'];
 export const INTERNAL_SERVER_ERROR_PAGE = '/error/500';
 export const CATEGORIAS = ['Fonologia', 'Morfologia', 'Sintaxe'];
+
+export const styles = new Map<string, string>();
+styles.set('h2', 'text-4xl font-bold');
+styles.set('h3', 'text-3xl font-bold');
+styles.set('h4', 'text-2xl font-bold');
+styles.set('ol', 'list-decimal');
+styles.set('ul', 'list-disc');
+styles.set('blockquote', 'italic');
