@@ -1,24 +1,22 @@
-import { type ButtonType } from '@/app/components/types';
+import { type IButton } from '@/app/components/types';
 
 import Image from 'next/image';
 
 export const Button = ({
 	style,
 	text,
-	textColor,
+	textColor = 'text-white',
 	imageSide,
 	image,
-	backgroundColor,
+	backgroundColor = 'bg-primaryBlue',
 	id,
 	onClick,
 	isActive = true,
-	hoverColor,
-}: ButtonType) => {
+	hoverColor = 'hover:bg-secondaryBlue',
+}: IButton) => {
 	return (
 		<button
-			onClick={() => {
-				isActive && onClick;
-			}}
+			onClick={onClick}
 			className={` ${style} ${isActive && 'hover:cursor-pointer'} ${
 				!isActive && 'opacity-50'
 			}  `}

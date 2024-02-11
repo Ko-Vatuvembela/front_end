@@ -1,11 +1,16 @@
 'use client';
 import { AuthProvider } from '@/app/context/AuthProvider';
-import { type LanguageType } from '@/app/components/types';
+import { type ILanguage } from '@/app/components/types';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 import { useEffect, useState } from 'react';
 import FetchRequest from '@/app/provider/api';
 import { useRouter } from 'next/navigation';
 import { TextLink } from '@/app/components/shared/Link';
+import {
+	INTERNAL_SERVER_ERROR_PAGE,
+	OK,
+	UNAUTHORIZED,
+} from '@/app/components/shared/resources';
 const request = new FetchRequest();
 
 const letters = [
@@ -38,7 +43,7 @@ const letters = [
 
 export default function Dicionario () {
 	const router = useRouter();
-	const [langs, updateList] = useState<LanguageType[]>([]);
+	const [langs, updateList] = useState<ILanguage[]>([]);
 	const [languageID, setLanguageID] = useState<string>('');
 
 	useEffect(() => {
@@ -46,16 +51,16 @@ export default function Dicionario () {
 			try {
 				const req = await request.get('lingua');
 
-				if (req.status === 401) {
+				if (req.status === UNAUTHORIZED) {
 					sessionStorage.clear();
 					router.replace('/');
-				} else if (req.status === 200) {
+				} else if (req.status === OK) {
 					const list = await req.json();
 					updateList(list);
 					setLanguageID(list[0].id);
 				}
 			} catch (e) {
-				router.replace('/error/500');
+				router.replace(INTERNAL_SERVER_ERROR_PAGE);
 			}
 		})();
 	}, []);

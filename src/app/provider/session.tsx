@@ -1,5 +1,5 @@
 'use client';
-import { type UserType } from '../components/types';
+import { type IUser } from '../components/types';
 
 export default class SessionProvider {
 	setToken (tokens: string): void {
@@ -17,25 +17,25 @@ export default class SessionProvider {
 		}
 	}
 
-	setUserData (userData: UserType): void {
+	setUserData (userData: IUser): void {
 		if (typeof window !== 'undefined') {
 			sessionStorage.setItem('userData', JSON.stringify(userData));
 		}
 	}
 
-	getUserData (): UserType | null {
+	getUserData (): IUser | null {
 		if (typeof window !== 'undefined') {
 			if (this.isSession()) {
 				return Object(
 					JSON.parse(sessionStorage.getItem('userData') as string)
-				) as UserType;
+				) as IUser;
 			}
 		}
 
 		return null;
 	}
 
-	updateUserData (updateData: UserType): void {
+	updateUserData (updateData: IUser): void {
 		if (typeof window !== 'undefined') {
 			if (this.isSession()) {
 				sessionStorage.setItem('userData', JSON.stringify(updateData));

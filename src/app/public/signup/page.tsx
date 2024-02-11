@@ -7,7 +7,10 @@ import { Button } from '@/app/components/shared/body/forms/Button';
 import { TextLink } from '@/app/components/shared/Link';
 import FetchRequest from '@/app/provider/api';
 import Image from 'next/image';
-import { capitalize } from '@/app/components/shared/resources';
+import {
+	INTERNAL_SERVER_ERROR_PAGE,
+	capitalize,
+} from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
 
 const fetchRequest = new FetchRequest();
@@ -37,7 +40,7 @@ export default function SignUpPage () {
 					updateErrorMessageStyle('text-red-700 my-2');
 					updateErrorMessage(`O email ${email} já existe.`);
 				} else if (request.status === 500) {
-					router.replace('/error/500');
+					router.replace(INTERNAL_SERVER_ERROR_PAGE);
 				} else if (request.status === 201) {
 					updateErrorMessageStyle('text-green-700 my-2');
 					updateErrorMessage(

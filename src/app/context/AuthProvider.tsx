@@ -2,11 +2,11 @@
 import { createContext, useEffect } from 'react';
 import SessionProvider from '../provider/session';
 import { useRouter } from 'next/navigation';
-import { type UserType } from '../components/types';
+import { type IUser } from '../components/types';
 
 const session = new SessionProvider();
 const userData = session.getUserData();
-const AuthContext = createContext<UserType | null>(userData);
+const AuthContext = createContext<IUser | null>(userData);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const router = useRouter();
@@ -18,7 +18,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			if (!userData.ativada) {
 				const { email } = userData;
 				localStorage.setItem('email', email);
-				console.log('antes ' + email);
 				session.deleteSession();
 				router.replace('/public/verify');
 			}
