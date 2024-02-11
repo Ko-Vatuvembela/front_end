@@ -19,7 +19,7 @@ import { Button } from '@/app/components/shared/body/forms/Button';
 
 const request = new FetchRequest();
 
-export default function NewComponent() {
+export default function NewComponent () {
 	const languageHash = useRef<Map<string, number>>();
 	const hash = new Map<string, number>();
 	const contributionType = 'gramatica';
