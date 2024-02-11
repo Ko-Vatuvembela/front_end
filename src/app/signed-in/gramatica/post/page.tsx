@@ -27,7 +27,7 @@ const robotoSerif = Roboto_Serif({
 	display: 'swap',
 });
 
-export default function NewComponent() {
+export default function NewComponent () {
 	const router = useRouter();
 	const postID = useSearchParams().get('id');
 	const [post, updatePost] = useState<IPostDetailed>();

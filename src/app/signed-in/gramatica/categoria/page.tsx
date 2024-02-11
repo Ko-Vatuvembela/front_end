@@ -16,7 +16,7 @@ import { NoContent } from '@/app/components/shared/body/NoContent';
 
 const request = new FetchRequest();
 
-export default function Categoria() {
+export default function Categoria () {
 	const router = useRouter();
 	const categoria = useSearchParams().get('categoria');
 	const languageID = useSearchParams().get('languageID');
@@ -56,9 +56,11 @@ export default function Categoria() {
 					</h1>
 					<hr />
 					<div className="mt-3 mb-8">
-						{posts.length === 0 ? (
+						{posts.length === 0
+? (
 							<NoContent />
-						) : (
+						)
+: (
 							posts.map((value, index) => (
 								<Post {...value} key={index} />
 							))
