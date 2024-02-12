@@ -193,3 +193,28 @@ export interface ILivro {
 	local_publicacao: string;
 	edicao: number;
 }
+export interface IQuote {
+	id_proverbio: number;
+	proverbio: string;
+	lingua_fk: number;
+}
+export interface IDetailedQuote {
+	proverbio: {
+		id_proverbio: number;
+		proverbio: string;
+		explicacao: string;
+		data: string;
+		utilizador_fk: number;
+		lingua_fk: number;
+		uid: {
+			nome: string;
+			sobrenome: string;
+			uid: number;
+		};
+	};
+	lingua: string;
+}
+export interface ISingleQuote {
+	proverbio: string;
+	lingua: string;
+}
