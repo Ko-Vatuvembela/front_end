@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/app/components/shared/body/forms/Button';
 import Image from 'next/image';
-import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent, useEffect } from 'react';
 import { TextLink } from '@/app/components/shared/Link';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
 import FetchRequest from '@/app/provider/api';
@@ -9,15 +9,39 @@ import SessionProvider from '@/app/provider/session';
 import { OK, UNAUTHORIZED, signedURL } from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
 import { IsLogged } from '@/app/components/middleware/IsLogged';
+import { type ISingleQuote } from '../components/types';
+import { Roboto_Serif } from 'next/font/google';
 const fetchRequest = new FetchRequest();
 const session = new SessionProvider();
+
+const robotoSerif = Roboto_Serif({
+	style: ['normal', 'italic'],
+	weight: ['100', '500', '700'],
+	subsets: ['latin'],
+	display: 'swap',
+});
 
 export const IndexPage = () => {
 	const [email, updateEmail] = useState<string>();
 	const [loadingStyle, setStyle] = useState<string>('hidden');
 	const [errorMessage, updateErrorMessage] = useState<string>();
 	const [password, updatePassword] = useState<string>();
+	const [quote, updateQuote] = useState<ISingleQuote>({
+		lingua: 'Ngangela',
+		proverbio: 'Intsi ko kwata ,tyengo tya na mema',
+	});
+
 	const router = useRouter();
+	useEffect(() => {
+		(async () => {
+			const quoteRoute = 'public/quote';
+			const req = await fetchRequest.get(quoteRoute);
+			const newQuote = (await req.json()) as ISingleQuote;
+			if (newQuote.lingua) {
+				updateQuote(newQuote);
+			}
+		})();
+	}, []);
 
 	const imageSize = 56;
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -45,7 +69,9 @@ export const IndexPage = () => {
 		<IsLogged>
 			<>
 				<div className="mx-auto">
-					<h1 className="text-primaryBlue text-4xl my-8 font-light text-center">
+					<h1
+						className={`text-primaryBlue text-4xl my-8 font-normal text-center ${robotoSerif.className}`}
+					>
 						Um lugar para partilharmos conhecimentos e entendermos
 						melhor as nossas raízes.
 					</h1>
@@ -118,7 +144,7 @@ export const IndexPage = () => {
 							/>
 						</p>
 					</section>
-					<div className="block">
+					<div className={`block ${robotoSerif.className}`}>
 						<Image
 							alt="quote"
 							src="/images/quotes.svg"
@@ -126,8 +152,8 @@ export const IndexPage = () => {
 							height={imageSize}
 						/>
 						<div className="flex justify-center text-center">
-							<p className="text-5xl font-extralight text-primaryBlue w-[80%] text-justify italic">
-								Intsi ko kwata ,tyengo tya na mema
+							<p className="text-5xl font-thin text-primaryBlue w-[80%] text-justify italic">
+								{quote.proverbio}
 							</p>
 						</div>
 						<Image
@@ -139,7 +165,7 @@ export const IndexPage = () => {
 						/>
 						<p className=" text-base text-primaryBlue mt-12 ml-5">
 							{' '}
-							- Ditado popular Ngangela
+							- Ditado popular {quote.lingua}
 						</p>
 					</div>
 				</div>

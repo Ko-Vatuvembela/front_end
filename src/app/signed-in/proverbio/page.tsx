@@ -5,11 +5,11 @@ import { Back } from '@/app/components/shared/Back';
 import { Add } from '@/app/components/shared/Add';
 import { Proverbios } from '@/app/components/shared/body/Proverbio';
 
-export default function Proverbio () {
+export default function Proverbio() {
 	const contributionType = 'proverbio';
 	return (
 		<AuthProvider>
-			<LayoutPattern backgroundImage="vaso">
+			<LayoutPattern backgroundImage="earrings">
 				<Proverbios />
 				<Add
 					type={contributionType}
