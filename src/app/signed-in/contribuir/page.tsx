@@ -7,15 +7,16 @@ import { Quotes } from '@/app/components/shared/body/Quotes';
 import { Dictionary } from '@/app/components/shared/body/Dictionary';
 import { useEffect } from 'react';
 import { Back } from '@/app/components/shared/Back';
+import { NOT_FOUND } from '@/app/components/shared/resources';
 
-export default function Contribuir () {
+export default function Contribuir() {
 	const paramList = ['dicionario', 'gramatica', 'proverbio'];
 	const router = useRouter();
 	const tipo = useSearchParams().get('tipo');
 
 	useEffect(() => {
 		if (!paramList.includes(tipo as string)) {
-			router.replace('/error/404');
+			router.replace(NOT_FOUND);
 		}
 	}, []);
 	return (
