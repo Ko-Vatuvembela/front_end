@@ -23,7 +23,7 @@ const robotoSerif = Roboto_Serif({
 	subsets: ['latin'],
 	display: 'swap',
 });
-export default function Proverbio() {
+export default function Proverbio () {
 	const id = Number(useSearchParams().get('id'));
 	const router = useRouter();
 

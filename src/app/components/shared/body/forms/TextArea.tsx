@@ -5,11 +5,11 @@ export const TextArea = ({
 	setValue,
 	value,
 }: {
-	value: string;
-	placeholder: string;
-	name: string;
-	label: string;
-	setValue: (e: string) => void;
+	value: string
+	placeholder: string
+	name: string
+	label: string
+	setValue: (e: string) => void
 }) => {
 	return (
 		<div>
