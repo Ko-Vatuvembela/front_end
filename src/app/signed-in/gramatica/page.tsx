@@ -16,6 +16,7 @@ import { Back } from '@/app/components/shared/Back';
 import { Add } from '@/app/components/shared/Add';
 import { SelectBox } from '@/app/components/shared/body/forms/Select';
 import { Button } from '@/app/components/shared/body/forms/Button';
+import { Title } from '@/app/components/shared/Title';
 
 const request = new FetchRequest();
 
@@ -69,7 +70,8 @@ export default function NewComponent () {
 		<AuthProvider>
 			<LayoutPattern backgroundImage="vaso">
 				<div className="">
-					<section className="flex justify-center">
+					<Title text="Gramática" />
+					<section className="flex justify-center my-2">
 						<div>
 							<div>
 								<SelectBox

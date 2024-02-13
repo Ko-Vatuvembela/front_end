@@ -7,33 +7,17 @@ import { Quotes } from '@/app/components/shared/body/Quotes';
 import { Dictionary } from '@/app/components/shared/body/Dictionary';
 import { useEffect } from 'react';
 import { Back } from '@/app/components/shared/Back';
+import { NOT_FOUND } from '@/app/components/shared/resources';
 
-export default function NewComponent () {
+export default function Contribuir() {
 	const paramList = ['dicionario', 'gramatica', 'proverbio'];
 	const router = useRouter();
 	const tipo = useSearchParams().get('tipo');
 
 	useEffect(() => {
 		if (!paramList.includes(tipo as string)) {
-			router.replace('/error/404');
+			router.replace(NOT_FOUND);
 		}
-
-		// (async () => {
-		// 	try {
-		// 		const req = await request.get(
-		// 			`post/categorias/${tipo}/${languageID}`
-		// 		);
-		// 		if (req.status === UNAUTHORIZED) {
-		// 			sessionStorage.clear();
-		// 			router.replace('/');
-		// 		} else if (req.status === OK) {
-		// 			const list = await req.json();
-		// 			setPosts(list);
-		// 		}
-		// 	} catch (e) {
-		// 		router.replace('/error/500');
-		// 	}
-		// })();
 	}, []);
 	return (
 		<AuthProvider>
