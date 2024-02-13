@@ -20,7 +20,7 @@ import { Title } from '@/app/components/shared/Title';
 
 const request = new FetchRequest();
 
-export default function NewComponent() {
+export default function NewComponent () {
 	const languageHash = useRef<Map<string, number>>();
 	const hash = new Map<string, number>();
 	const contributionType = 'gramatica';

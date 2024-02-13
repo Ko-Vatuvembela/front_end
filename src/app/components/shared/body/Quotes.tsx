@@ -99,7 +99,11 @@ export const Quotes = () => {
 				value={explicacao.trim()}
 				setValue={setExplicacao}
 			/>
-			<div className="my-2"></div>
+			{proverbio && explicacao && (
+				<p className="my-2 italic text-red-500 font-bold">
+					*Revise o texto e a ortografia antes de cadastrar*
+				</p>
+			)}
 			<Button text="Cadastrar" onClick={submitQuote} />
 		</div>
 	);
