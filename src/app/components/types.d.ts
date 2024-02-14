@@ -63,6 +63,14 @@ export interface IUser {
 	token?: string;
 	uid: number;
 }
+export interface IUpdateUser {
+	nome?: string;
+	sobrenome?: string;
+	email?: string;
+	foto?: string;
+	ativada?: boolean;
+	token?: string;
+}
 export interface ISession {
 	token: string;
 	data: Date;

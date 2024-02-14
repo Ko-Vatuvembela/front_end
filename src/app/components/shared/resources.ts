@@ -2,8 +2,18 @@ import FetchRequest from '@/app/provider/api';
 import SessionProvider from '@/app/provider/session';
 const session = new SessionProvider();
 
-export const getHeaders = (): Headers => {
-	const headers = new Headers({ 'Content-Type': 'application/json' });
+export const getHeaders = (
+	contentType = { 'Content-Type': 'application/json' }
+): Headers => {
+	const headers = new Headers(contentType);
+	if (session.isAuthenticated()) {
+		const token = session.getUserData()?.token;
+		headers.append('Authorization', `Bearer ${token}`);
+	}
+	return headers;
+};
+export const getUploadHeaders = (): Headers => {
+	const headers = new Headers();
 	if (session.isAuthenticated()) {
 		const token = session.getUserData()?.token;
 		headers.append('Authorization', `Bearer ${token}`);
@@ -72,3 +82,5 @@ styles.set('h4', 'text-2xl font-bold');
 styles.set('ol', 'list-decimal');
 styles.set('ul', 'list-disc');
 styles.set('blockquote', 'italic');
+
+export const DEFAULT_IMAGE = '/images/default.svg';
