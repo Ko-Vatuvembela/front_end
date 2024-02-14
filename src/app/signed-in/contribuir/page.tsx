@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { Back } from '@/app/components/shared/Back';
 import { NOT_FOUND } from '@/app/components/shared/resources';
 
-export default function Contribuir() {
+export default function Contribuir () {
 	const paramList = ['dicionario', 'gramatica', 'proverbio'];
 	const router = useRouter();
 	const tipo = useSearchParams().get('tipo');

@@ -1,5 +1,5 @@
 'use client';
-import { type IUser } from '../components/types';
+import { type IUpdateUser, type IUser } from '../components/types';
 
 export default class SessionProvider {
 	setToken (tokens: string): void {
@@ -23,6 +23,15 @@ export default class SessionProvider {
 		}
 	}
 
+	getUserPhoto (): string {
+		const userData = this.getUserData();
+		const host = process.env.NEXT_PUBLIC_SERVER_HOST;
+		const protocol = process.env.NEXT_PUBLIC_SERVER_PROTOCOL;
+		const port = process.env.NEXT_PUBLIC_SERVER_PORT;
+		const path = process.env.NEXT_PUBLIC_SERVER_PATH;
+		return `${protocol}://${host}:${port}/${path}/${userData?.foto}`;
+	}
+
 	getUserData (): IUser | null {
 		if (typeof window !== 'undefined') {
 			if (this.isSession()) {
@@ -31,14 +40,15 @@ export default class SessionProvider {
 				) as IUser;
 			}
 		}
-
 		return null;
 	}
 
-	updateUserData (updateData: IUser): void {
+	updateUserData (updateData: IUpdateUser): void {
 		if (typeof window !== 'undefined') {
 			if (this.isSession()) {
-				sessionStorage.setItem('userData', JSON.stringify(updateData));
+				const userData = this.getUserData() as IUser;
+				Object.assign(userData, updateData);
+				sessionStorage.setItem('userData', JSON.stringify(userData));
 			}
 		}
 	}

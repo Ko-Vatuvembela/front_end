@@ -1,4 +1,4 @@
-import { getHeaders } from '../components/shared/resources';
+import { getHeaders, getUploadHeaders } from '../components/shared/resources';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -18,10 +18,25 @@ export default class FetchRequest {
 		}
 	}
 
-	async put (url: string, id: number, data: any) {
-		const headers = getHeaders();
+	async uploadFile (url: string, method: 'PUT' | 'POST', data: FormData) {
+		const headers = getUploadHeaders();
+		try {
+			const request = await fetch(BASE_URL + url, {
+				method,
+				body: data,
+				headers,
+				cache: 'no-cache',
+			});
+			return request;
+		} catch (e: any) {
+			return null;
+		}
+	}
 
-		return await fetch(`${BASE_URL + url}/${id}`, {
+	async put (url: string, id: number = 0, data: any) {
+		const headers = getHeaders();
+		const param = id !== 0 ? String(id) : '';
+		return await fetch(`${BASE_URL + url}/${param}`, {
 			body: JSON.stringify(data),
 			headers,
 			method: 'PUT',
