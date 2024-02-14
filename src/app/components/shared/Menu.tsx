@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import SessionProvider from '@/app/provider/session';
+import { DEFAULT_IMAGE } from './resources';
 
-export const Menu = ({
-	optinalStyle = '',
-	foto = '/images/utilizador.svg',
-}) => {
+const session = new SessionProvider();
+
+export const Menu = ({ optinalStyle = '', foto = DEFAULT_IMAGE }) => {
 	return (
 		<nav
 			className={
@@ -22,8 +23,18 @@ export const Menu = ({
 					alt="logo"
 				/>
 			</Link>
-			<Link href={'#'} className="align-baseline my-auto">
-				<Image src={foto} width={64} height={64} alt="User" />
+			<Link
+				href={'/signed-in/profile'}
+				className="align-baseline my-auto"
+			>
+				<Image
+					loader={() => session.getUserPhoto()}
+					src={foto}
+					width={64}
+					className="rounded-full"
+					height={64}
+					alt="User"
+				/>
 			</Link>
 		</nav>
 	);

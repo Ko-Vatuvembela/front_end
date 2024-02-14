@@ -36,7 +36,6 @@ export default function Categoria () {
 					router.replace('/');
 				} else if (req.status === OK) {
 					const list = (await req.json()) as IPost[];
-					console.log(list);
 					setPosts(list);
 				} else {
 					router.replace('/not-found');

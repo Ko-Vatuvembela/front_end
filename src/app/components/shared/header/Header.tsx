@@ -12,7 +12,9 @@ export const Header = () => {
 		setLogged(session.isSession());
 	}, []);
 
-	if (isLogged) return <Menu />;
+	if (isLogged) {
+		return <Menu foto={session.getUserPhoto()} />;
+	}
 	return (
 		<nav className="w-full">
 			<Link href="/">
