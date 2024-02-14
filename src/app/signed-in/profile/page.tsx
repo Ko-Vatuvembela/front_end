@@ -7,6 +7,7 @@ import { Title } from '@/app/components/shared/Title';
 import { Button } from '@/app/components/shared/body/forms/Button';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
 import {
+	CONFLICT,
 	OK,
 	UNAUTHORIZED,
 	UNPROCESSABLE_ENTITY,
@@ -63,16 +64,19 @@ export default function Profile () {
 			if (req.status === OK) {
 				session.updateUserData((await req.json()) as IUser);
 				setIsError(false);
-				hide(true);
 				updateResponse('Dados actualizados com sucesso!');
 			} else if (req.status === UNPROCESSABLE_ENTITY) {
 				setIsError(true);
 				updateResponse('Erro : Verifique os dados');
+			} else if (req.status === CONFLICT) {
+				setIsError(true);
+				updateResponse('Erro : Este email pertence a outra conta');
 			} else if (req.status === UNAUTHORIZED) {
 				localStorage.clear();
 				sessionStorage.clear();
 				router.replace('/');
 			}
+			hide(true);
 		}
 		if (foto.size) {
 			hide(false);
