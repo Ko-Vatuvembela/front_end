@@ -66,6 +66,7 @@ export const categorias = [
 
 export const ALL_LANGUAGES = 200;
 export const UNAUTHORIZED = 401;
+export const CONFLICT = 409;
 export const CREATED = 201;
 export const INTERNAL_SERVER_ERROR = 500;
 export const NOT_FOUND = '/not-found';
