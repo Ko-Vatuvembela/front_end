@@ -6,6 +6,7 @@ import { InputText } from '@/app/components/shared/body/forms/InputText';
 import { Button } from '@/app/components/shared/body/forms/Button';
 import Image from 'next/image';
 import FetchRequest from '@/app/provider/api';
+import { Back } from '@/app/components/shared/Back';
 
 export default function ForgotPassword () {
 	const router = useRouter();
@@ -81,6 +82,7 @@ export default function ForgotPassword () {
 					)}
 				</div>
 			</div>
+			<Back />
 		</LayoutPattern>
 	);
 }
