@@ -4,7 +4,6 @@ import { type FormEvent, useState } from 'react';
 import { InputText } from '@/app/components/shared/body/forms/InputText';
 import { LayoutPattern } from '../LayoutPattern';
 import { Button } from '@/app/components/shared/body/forms/Button';
-import { TextLink } from '@/app/components/shared/Link';
 import FetchRequest from '@/app/provider/api';
 import Image from 'next/image';
 import {
@@ -12,6 +11,7 @@ import {
 	capitalize,
 } from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
+import { Back } from '@/app/components/shared/Back';
 
 const fetchRequest = new FetchRequest();
 
@@ -144,11 +144,8 @@ export default function SignUpPage () {
 					height={128}
 					className={loadingStyle}
 				/>
-				<TextLink
-					href="/"
-					text="Retroceder"
-					optinalStyle="text-primaryBlue mb-8"
-				/>
+
+				<Back />
 			</LayoutPattern>
 		</>
 	);
