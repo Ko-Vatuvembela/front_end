@@ -3,9 +3,7 @@ import { Back } from '@/app/components/shared/Back';
 import { LayoutPattern } from '../LayoutPattern';
 import { Title } from '@/app/components/shared/Title';
 
-export default function Support() {
-	const blue = 'text-primaryBlue';
-
+export default function Support () {
 	return (
 		<>
 			<LayoutPattern backgroundImage="elephant">
