@@ -19,13 +19,13 @@ export const Footer = ({ optinalStyle = '' }) => {
 			<div className={' text-center mb-5 z-100'}>
 				<ul className={'list-none p-3'}>
 					<li className="md:inline mx-5">
-						<TextLink href={'public/about'} text="Sobre" />
+						<TextLink href={'/public/about'} text="Sobre" />
 					</li>
 					<li className="md:inline mx-5">
-						<TextLink href={'#'} text="Contactos" />
+						<TextLink href={'/public/contacts'} text="Contactos" />
 					</li>
 					<li className="md:inline mx-5">
-						<TextLink href={'#'} text="Suporte" />
+						<TextLink href={'/public/support'} text="Suporte" />
 					</li>
 					<li className="md:inline mx-5">
 						<TextLink href={'#'} text="Transparência" />
