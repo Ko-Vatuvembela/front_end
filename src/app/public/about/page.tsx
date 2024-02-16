@@ -3,7 +3,7 @@ import { Back } from '@/app/components/shared/Back';
 import { LayoutPattern } from '../LayoutPattern';
 import { Title } from '@/app/components/shared/Title';
 
-export default function About() {
+export default function About () {
 	const blue = 'text-primaryBlue';
 
 	return (
