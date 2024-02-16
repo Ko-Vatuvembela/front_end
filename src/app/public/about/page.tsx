@@ -3,12 +3,12 @@ import { Back } from '@/app/components/shared/Back';
 import { LayoutPattern } from '../LayoutPattern';
 import { Title } from '@/app/components/shared/Title';
 
-export default function SignUpPage () {
+export default function About() {
 	const blue = 'text-primaryBlue';
 
 	return (
 		<>
-			<LayoutPattern backgroundImage="bubu">
+			<LayoutPattern backgroundImage="scythe">
 				<div>
 					<Title text="Notas do autor" />
 					<p className="text-base text-justify">
@@ -40,11 +40,11 @@ export default function SignUpPage () {
 							e preocupam com ela.
 						</p>
 						<p className={'float-right ' + blue}>
-							Rodolfo Cabral Neves.
+							Brasília, aos 15 de Fevereiro de 2024
 						</p>
 						<br />
 						<p className={'float-right ' + blue}>
-							Brasília - DF, Brasil.
+							Rodolfo Cabral Neves
 						</p>
 					</p>
 					<Back />
