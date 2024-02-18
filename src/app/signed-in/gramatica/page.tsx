@@ -43,25 +43,45 @@ export default function NewComponent () {
 
 	useEffect(() => {
 		(async () => {
-			try {
-				const req = await request.get('lingua');
-				if (req.status === UNAUTHORIZED) {
-					sessionStorage.clear();
-					router.replace('/');
-				} else if (req.status === OK) {
-					const list = (await req.json()) as ILanguage[];
-					updateLanguage(list[0].lingua);
-					const tmpArr: string[] = [];
+			const languageList = JSON.parse(
+				localStorage.getItem('languages') as string
+			) as ILanguage[];
 
-					for (const elem of list) {
-						tmpArr.push(elem.lingua);
-						hash.set(elem.lingua, elem.id);
+			if (languageList === null) {
+				try {
+					const req = await request.get('lingua');
+					if (req.status === UNAUTHORIZED) {
+						sessionStorage.clear();
+						router.replace('/');
+					} else if (req.status === OK) {
+						const list = (await req.json()) as ILanguage[];
+						localStorage.setItem('languages', JSON.stringify(list));
+						updateLanguage(list[0].lingua);
+						const tmpArr: string[] = [];
+
+						for (const elem of list) {
+							tmpArr.push(elem.lingua);
+							hash.set(elem.lingua, elem.id);
+						}
+						setLanguages(tmpArr);
+						languageHash.current = hash;
 					}
-					setLanguages(tmpArr);
-					languageHash.current = hash;
+				} catch (e) {
+					router.replace(INTERNAL_SERVER_ERROR_PAGE);
 				}
-			} catch (e) {
-				router.replace(INTERNAL_SERVER_ERROR_PAGE);
+			} else {
+				const lang = JSON.parse(
+					localStorage.getItem('languages') as string
+				) as ILanguage[];
+				updateLanguage(lang[0].lingua);
+				const tmpArr: string[] = [];
+
+				for (const elem of lang) {
+					tmpArr.push(elem.lingua);
+					hash.set(elem.lingua, elem.id);
+				}
+				setLanguages(tmpArr);
+				languageHash.current = hash;
 			}
 		})();
 	}, []);

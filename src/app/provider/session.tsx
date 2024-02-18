@@ -56,6 +56,7 @@ export default class SessionProvider {
 	deleteSession (): void {
 		if (typeof window !== 'undefined') {
 			sessionStorage.clear();
+			localStorage.removeItem('languages');
 		}
 	}
 
