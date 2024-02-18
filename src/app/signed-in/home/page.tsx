@@ -1,13 +1,20 @@
 'use client';
-import { AuthProvider /* AuthContext */ } from '@/app/context/AuthProvider';
-// import { useContext } from 'react';
+import { AuthProvider } from '@/app/context/AuthProvider';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { type IMenuOption } from '@/app/components/types';
+import { type ILanguage, type IMenuOption } from '@/app/components/types';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
+import { useEffect } from 'react';
+import FetchRequest from '@/app/provider/api';
+import {
+	UNAUTHORIZED,
+	OK,
+	INTERNAL_SERVER_ERROR_PAGE,
+} from '@/app/components/shared/resources';
+
+const request = new FetchRequest();
 
 export default function HomePage () {
-	// const userData = useContext(AuthContext);
 	const IMAGE_DIR = '/images/';
 	const width = 125;
 	const height = 125;
@@ -60,6 +67,29 @@ export default function HomePage () {
 			width,
 		},
 	];
+
+	useEffect(() => {
+		(async () => {
+			const languageList = JSON.parse(
+				localStorage.getItem('languages') as string
+			) as ILanguage[];
+			if (languageList === null) {
+				try {
+					const req = await request.get('lingua');
+					if (req.status === UNAUTHORIZED) {
+						sessionStorage.clear();
+						router.replace('/');
+					} else if (req.status === OK) {
+						const list = (await req.json()) as ILanguage[];
+						localStorage.setItem('languages', JSON.stringify(list));
+					}
+				} catch (e) {
+					router.replace(INTERNAL_SERVER_ERROR_PAGE);
+				}
+			}
+		})();
+	}, []);
+
 	return (
 		<AuthProvider>
 			<LayoutPattern backgroundImage="bubu">
