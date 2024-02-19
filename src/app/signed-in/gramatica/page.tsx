@@ -3,31 +3,26 @@ import { AuthProvider } from '@/app/context/AuthProvider';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 import { type ILanguage } from '@/app/components/types';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect, useRef } from 'react';
-import {
-	CATEGORIAS,
-	INTERNAL_SERVER_ERROR_PAGE,
-	OK,
-	UNAUTHORIZED,
-	categorias,
-} from '@/app/components/shared/resources';
-import FetchRequest from '@/app/provider/api';
+import { useState, useEffect } from 'react';
+import { CATEGORIAS, categorias } from '@/app/components/shared/resources';
 import { Back } from '@/app/components/shared/Back';
 import { Add } from '@/app/components/shared/Add';
 import { SelectBox } from '@/app/components/shared/body/forms/Select';
 import { Button } from '@/app/components/shared/body/forms/Button';
 import { Title } from '@/app/components/shared/Title';
-
-const request = new FetchRequest();
+import {
+	// LanguageContext,
+	LanguageProvider,
+} from '@/app/context/LanguageContext';
 
 export default function NewComponent () {
-	const languageHash = useRef<Map<string, number>>();
-	const hash = new Map<string, number>();
-	const contributionType = 'gramatica';
-	const [selectedLanguage, updateLanguage] = useState('');
-	const [category, updateCategory] = useState(CATEGORIAS[0]);
-	const [languages, setLanguages] = useState<string[]>([]);
+	const [languageObjs, updateLanguageObjs] = useState<ILanguage[]>([]);
+	const [selectedLanguage, selectLanguage] = useState<string>();
+	const [languageStrings, updateLanguageStrings] = useState<string[]>([]);
+	const [languageHash, setLanguageHash] = useState<Map<string, number>>();
 	const router = useRouter();
+	const contributionType = 'gramatica';
+	const [category, updateCategory] = useState(CATEGORIAS[0]);
 	const categoryHash = new Map<string, string>();
 
 	categoryHash.set(categorias[0].nome, categorias[0].descricao);
@@ -35,95 +30,67 @@ export default function NewComponent () {
 	categoryHash.set(categorias[2].nome, categorias[2].descricao);
 	categoryHash.set(categorias[3].nome, categorias[3].descricao);
 
+	useEffect(() => {
+		if (languageObjs.length > 0) {
+			updateLanguageStrings(languageObjs.map(({ lingua }) => lingua));
+		}
+	}, []);
+
 	const search = () => {
-		const id = languageHash.current?.get(selectedLanguage);
+		const id = languageHash?.get(selectedLanguage as string);
 		const URL = `/signed-in/gramatica/categoria?categoria=${category}&languageID=${id}&languageName=${selectedLanguage}`;
 		router.push(URL);
 	};
 
-	useEffect(() => {
-		(async () => {
-			const languageList = JSON.parse(
-				localStorage.getItem('languages') as string
-			) as ILanguage[];
-
-			if (languageList === null) {
-				try {
-					const req = await request.get('lingua');
-					if (req.status === UNAUTHORIZED) {
-						sessionStorage.clear();
-						router.replace('/');
-					} else if (req.status === OK) {
-						const list = (await req.json()) as ILanguage[];
-						localStorage.setItem('languages', JSON.stringify(list));
-						updateLanguage(list[0].lingua);
-						const tmpArr: string[] = [];
-
-						for (const elem of list) {
-							tmpArr.push(elem.lingua);
-							hash.set(elem.lingua, elem.id);
-						}
-						setLanguages(tmpArr);
-						languageHash.current = hash;
-					}
-				} catch (e) {
-					router.replace(INTERNAL_SERVER_ERROR_PAGE);
-				}
-			} else {
-				const lang = JSON.parse(
-					localStorage.getItem('languages') as string
-				) as ILanguage[];
-				updateLanguage(lang[0].lingua);
-				const tmpArr: string[] = [];
-
-				for (const elem of lang) {
-					tmpArr.push(elem.lingua);
-					hash.set(elem.lingua, elem.id);
-				}
-				setLanguages(tmpArr);
-				languageHash.current = hash;
-			}
-		})();
-	}, []);
-
 	return (
 		<AuthProvider>
 			<LayoutPattern backgroundImage="vaso">
-				<div className="">
-					<Title text="Gramática" />
-					<section className="flex justify-center my-2">
-						<div>
+				<LanguageProvider
+					languages={languageObjs}
+					setLanguageHash={setLanguageHash}
+					languagesIDHash={languageHash}
+					languagesToString={languageStrings}
+					selectedLanguage={selectedLanguage}
+					selectLanguage={selectLanguage}
+					setLanguagesToString={updateLanguageStrings}
+					setLanguages={updateLanguageObjs}
+				>
+					<div className="">
+						<Title text="Gramática" />
+						<section className="flex justify-center my-2">
 							<div>
-								<SelectBox
-									name="lingua"
-									titulo="Selecione a língua"
-									values={languages}
-									onChange={updateLanguage}
-								/>
-							</div>
+								<div>
+									<SelectBox
+										name="lingua"
+										titulo="Selecione a língua"
+										values={languageStrings}
+										onChange={selectLanguage}
+									/>
+								</div>
 
-							<div className="my-2">
-								<SelectBox
-									name="categoria"
-									titulo="Selecione a categoria"
-									values={CATEGORIAS}
-									onChange={updateCategory}
-								/>
+								<div className="my-2">
+									<SelectBox
+										name="categoria"
+										titulo="Selecione a categoria"
+										values={CATEGORIAS}
+										onChange={updateCategory}
+									/>
+								</div>
 							</div>
-						</div>
-					</section>
-					<p className="text-gray-700 text-base text-justify mt-2 mb-8">
-						{categoryHash.get(category)}
-					</p>
-					<section className="flex justify-center">
-						<Button text="Pesquisar" onClick={search} />
-					</section>
-					<Add
-						type={contributionType}
-						url={`/signed-in/contribuir?tipo=${contributionType}`}
-					/>
-					<Back />
-				</div>
+						</section>
+						<p className="text-gray-700 text-base text-justify mt-2 mb-8">
+							{categoryHash.get(category)}
+						</p>
+						<section className="flex justify-center">
+							<Button text="Pesquisar" onClick={search} />
+						</section>
+						<Add
+							type={contributionType}
+							url={`/signed-in/contribuir?tipo=${contributionType}`}
+						/>
+						<Back />
+					</div>
+				</LanguageProvider>
 			</LayoutPattern>
 		</AuthProvider>
 	);
