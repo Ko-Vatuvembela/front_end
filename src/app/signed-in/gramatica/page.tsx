@@ -10,12 +10,9 @@ import { Add } from '@/app/components/shared/Add';
 import { SelectBox } from '@/app/components/shared/body/forms/Select';
 import { Button } from '@/app/components/shared/body/forms/Button';
 import { Title } from '@/app/components/shared/Title';
-import {
-	// LanguageContext,
-	LanguageProvider,
-} from '@/app/context/LanguageContext';
+import { LanguageProvider } from '@/app/context/LanguageContext';
 
-export default function NewComponent () {
+export default function Gramatica () {
 	const [languageObjs, updateLanguageObjs] = useState<ILanguage[]>([]);
 	const [selectedLanguage, selectLanguage] = useState<string>();
 	const [languageStrings, updateLanguageStrings] = useState<string[]>([]);
