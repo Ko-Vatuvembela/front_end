@@ -20,11 +20,11 @@ export const QuotesProvider = ({
 	filterQuotes,
 	setQuotes,
 }: {
-	setQuotes: (e: IQuote[]) => void;
-	filterQuotes?: (e: IQuote[]) => void;
-	quotes: IQuote[];
+	setQuotes: (e: IQuote[]) => void
+	filterQuotes?: (e: IQuote[]) => void
+	quotes: IQuote[]
 	// filteredQuotes?: IQuote[];
-	children: React.ReactNode;
+	children: React.ReactNode
 }) => {
 	const router = useRouter();
 

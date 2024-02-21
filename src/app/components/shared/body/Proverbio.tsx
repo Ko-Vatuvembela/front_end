@@ -1,7 +1,7 @@
-/* eslint-disable multiline-ternary */
+/* */
 import { Roboto_Serif } from 'next/font/google';
 import { Title } from '../Title';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { decode } from 'he';
 import { type IQuote, type ILanguage } from '../../types';
 import { LanguageProvider } from '@/app/context/LanguageContext';
@@ -82,7 +82,8 @@ export const Proverbios = () => {
 						</section>
 
 						<section className="proverbios text-justify">
-							{filteredQuotes.length ? (
+							{filteredQuotes.length
+? (
 								filteredQuotes.map(
 									({ proverbio, id_proverbio }, index) => {
 										const LIMIT = 50;
@@ -107,7 +108,8 @@ export const Proverbios = () => {
 										);
 									}
 								)
-							) : (
+							)
+: (
 								<NoContent />
 							)}
 						</section>
