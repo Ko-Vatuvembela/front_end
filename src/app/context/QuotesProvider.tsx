@@ -16,40 +16,35 @@ const session = new SessionProvider();
 export const QuotesProvider = ({
 	children,
 	quotes,
+	// filteredQuotes,
+	filterQuotes,
 	setQuotes,
 }: {
-	setQuotes: (e: IQuote[]) => void
-	quotes: IQuote[]
-	children: React.ReactNode
+	setQuotes: (e: IQuote[]) => void;
+	filterQuotes?: (e: IQuote[]) => void;
+	quotes: IQuote[];
+	// filteredQuotes?: IQuote[];
+	children: React.ReactNode;
 }) => {
 	const router = useRouter();
 
 	useEffect(() => {
 		(async () => {
-			const cache = JSON.parse(
-				localStorage.getItem('quotes') as string
-			) as IQuote[];
+			try {
+				const reqQuotes = await request.get('quotes');
 
-			if (cache === null) {
-				try {
-					const reqQuotes = await request.get('quotes');
-
-					if (reqQuotes.status === UNAUTHORIZED) {
-						session.deleteSession();
-						router.replace('/');
-					} else if (reqQuotes.status === OK) {
-						const quotesList = (await reqQuotes.json()) as IQuote[];
-						setQuotes(quotesList);
-						localStorage.setItem(
-							'quotes',
-							JSON.stringify(quotesList)
-						);
+				if (reqQuotes.status === UNAUTHORIZED) {
+					session.deleteSession();
+					router.replace('/');
+				} else if (reqQuotes.status === OK) {
+					const quotesList = (await reqQuotes.json()) as IQuote[];
+					setQuotes(quotesList);
+					if (filterQuotes) {
+						filterQuotes(quotesList);
 					}
-				} catch (e) {
-					router.replace(INTERNAL_SERVER_ERROR_PAGE);
 				}
-			} else {
-				localStorage.setItem('quotes', JSON.stringify(cache));
+			} catch (e) {
+				router.replace(INTERNAL_SERVER_ERROR_PAGE);
 			}
 		})();
 	}, []);

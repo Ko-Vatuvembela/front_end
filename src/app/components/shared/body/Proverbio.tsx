@@ -1,6 +1,7 @@
+/* eslint-disable multiline-ternary */
 import { Roboto_Serif } from 'next/font/google';
 import { Title } from '../Title';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { decode } from 'he';
 import { type IQuote, type ILanguage } from '../../types';
 import { LanguageProvider } from '@/app/context/LanguageContext';
@@ -25,16 +26,21 @@ export const Proverbios = () => {
 		language.id === all.id
 			? ' em todas as línguas'
 			: ` em ${language.lingua}`;
+
 	return (
 		<LanguageProvider
 			languages={languageList}
 			setLanguages={setLanguageList}
 		>
-			<QuotesProvider quotes={quotes} setQuotes={setQuotes}>
+			<QuotesProvider
+				quotes={quotes}
+				setQuotes={setQuotes}
+				filterQuotes={filterQuotes}
+			>
 				<Title text={`Provérbios ${aditional}`} />
 				<form action="" method="post">
-					<div className="flex">
-						<section className="filter w-[30%] block ">
+					<div className=" lg:flex">
+						<section className="filter md:w-[30%] block ">
 							<p className="text-lg font-medium">Língua:</p>
 							{languageList.map(({ id, lingua }, index) => (
 								<div className="block" key={index}>
@@ -75,33 +81,35 @@ export const Proverbios = () => {
 							/>
 						</section>
 
-						<section className="proverbios ">
-							{filteredQuotes.map(
-								({ proverbio, id_proverbio }, index) => {
-									const LIMIT = 50;
-									const p = decode(proverbio);
-									const phrase = decode(
-										p.length > LIMIT
-											? p.slice(0, LIMIT) + '...'
-											: p
-									);
-									return (
-										<p
-											className={`mt-2 italic ${robotoSerif.className}`}
-											key={index}
-										>
-											{phrase}{' '}
-											<a
-												href={`/signed-in/proverbio/ver?id=${id_proverbio}`}
-												className="font-normal hover:underline text-primaryBlue"
+						<section className="proverbios text-justify">
+							{filteredQuotes.length ? (
+								filteredQuotes.map(
+									({ proverbio, id_proverbio }, index) => {
+										const LIMIT = 50;
+										const tmp = decode(proverbio);
+										const phrase =
+											tmp.length > LIMIT
+												? tmp.slice(0, LIMIT) + '...'
+												: tmp;
+										return (
+											<p
+												className={`mt-2 italic ${robotoSerif.className}`}
+												key={index}
 											>
-												Ver mais
-											</a>
-										</p>
-									);
-								}
+												{phrase}{' '}
+												<a
+													href={`/signed-in/proverbio/ver?id=${id_proverbio}`}
+													className="font-normal hover:underline text-primaryBlue"
+												>
+													Ver mais
+												</a>
+											</p>
+										);
+									}
+								)
+							) : (
+								<NoContent />
 							)}
-							{quotes.length === 0 && <NoContent />}
 						</section>
 					</div>
 				</form>
