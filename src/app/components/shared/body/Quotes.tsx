@@ -41,6 +41,7 @@ export const Quotes = () => {
 
 	useEffect(() => {
 		(async () => {
+			localStorage.removeItem('quotes');
 			try {
 				const req = await request.get('lingua');
 				if (req.status === UNAUTHORIZED) {
