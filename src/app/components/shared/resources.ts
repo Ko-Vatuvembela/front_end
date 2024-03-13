@@ -21,10 +21,10 @@ export const getUploadHeaders = (): Headers => {
 	}
 	return headers;
 };
-export function capitalize (e: string) {
+export function capitalize(e: string) {
 	return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
 }
-export function filterNumbers (e: string): string {
+export function filterNumbers(e: string): string {
 	let ret = '';
 	for (const a of e) {
 		const tmp = Number(a);
@@ -100,4 +100,4 @@ styles.set('ol', 'list-decimal');
 styles.set('ul', 'list-disc');
 styles.set('blockquote', 'italic');
 
-export const DEFAULT_IMAGE = '/images/default.svg';
+export const DEFAULT_IMAGE = '/images/clt3a50d40001qnd25wk5395u.jpg';
