@@ -227,6 +227,11 @@ export interface ISingleQuote {
 	lingua: string;
 }
 export interface IPalavra {
+	id_palavra: number;
+	palavra: string;
+	lingua_fk: number;
+}
+export interface ISignificado {
 	id_significado: number;
 	significado: string;
 	exemplo: string;

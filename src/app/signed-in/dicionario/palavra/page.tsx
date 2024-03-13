@@ -3,7 +3,7 @@
 import { AuthProvider } from '@/app/context/AuthProvider';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 import FetchRequest from '@/app/provider/api';
-import { type IPalavra } from '@/app/components/types';
+import { type ISignificado } from '@/app/components/types';
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -27,7 +27,7 @@ const robotoSerif = Roboto_Serif({
 
 export default function Palavra () {
 	const router = useRouter();
-	const [significados, setSignificados] = useState<IPalavra[]>([]);
+	const [significados, setSignificados] = useState<ISignificado[]>([]);
 	const [palavra, setPalavra] = useState<string>('Carregando . . .');
 	const languageID = Number(useSearchParams().get('IDLingua'));
 	const wordID = Number(useSearchParams().get('IDPalavra'));
@@ -43,7 +43,7 @@ export default function Palavra () {
 		(async () => {
 			const req = await request.get(`dictionary/${languageID}/${wordID}`);
 			if (req.status === OK) {
-				const result = (await req.json()) as IPalavra[];
+				const result = (await req.json()) as ISignificado[];
 				if (result.length === 0) {
 					router.replace(NOT_FOUND);
 				}
