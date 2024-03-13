@@ -100,4 +100,4 @@ styles.set('ol', 'list-decimal');
 styles.set('ul', 'list-disc');
 styles.set('blockquote', 'italic');
 
-export const DEFAULT_IMAGE = '/images/clt3a50d40001qnd25wk5395u.jpg';
+export const DEFAULT_IMAGE = '/images/default.svg';
