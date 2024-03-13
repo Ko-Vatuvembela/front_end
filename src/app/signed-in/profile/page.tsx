@@ -82,7 +82,6 @@ export default function Profile () {
 			hide(false);
 			const image = await request.uploadFile('profile', 'POST', form);
 			if (image) {
-				console.log(image.status);
 				if (image.status === OK) {
 					const newPhoto = (await image?.json()).foto;
 					session.updateUserData({

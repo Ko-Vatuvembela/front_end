@@ -41,7 +41,7 @@ export default function Palavra () {
 		}
 
 		(async () => {
-			const req = await request.get(`dictionary/${languageID}/${wordID}`);
+			const req = await request.get(`dictionary/${wordID}`);
 			if (req.status === OK) {
 				const result = (await req.json()) as ISignificado[];
 				if (result.length === 0) {
@@ -49,7 +49,6 @@ export default function Palavra () {
 				}
 				setSignificados(result);
 				setPalavra(result[0].idPalavra.palavra);
-				console.log(result);
 			} else if (req.status === UNPROCESSABLE_ENTITY) {
 				router.replace(NOT_FOUND);
 			} else {
