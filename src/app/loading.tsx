@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { LOADING_IMAGE } from './components/shared/resources';
 
 export default function Loading () {
 	return (
@@ -6,7 +7,7 @@ export default function Loading () {
 			<div className="flex justify-center">
 				<Image
 					alt="Background Image"
-					src={'/images/loading.svg'}
+					src={LOADING_IMAGE}
 					width={128}
 					height={128}
 					className="mx-auto mt-10"

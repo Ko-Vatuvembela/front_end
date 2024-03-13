@@ -18,7 +18,6 @@ export default function Gramatica () {
 	const [languageStrings, updateLanguageStrings] = useState<string[]>([]);
 	const [languageHash, setLanguageHash] = useState<Map<string, number>>();
 	const router = useRouter();
-	const contributionType = 'gramatica';
 	const [category, updateCategory] = useState(CATEGORIAS[0]);
 	const categoryHash = new Map<string, string>();
 
@@ -82,8 +81,8 @@ export default function Gramatica () {
 							<Button text="Pesquisar" onClick={search} />
 						</section>
 						<Add
-							type={contributionType}
-							url={`/signed-in/contribuir?tipo=${contributionType}`}
+							type="gramatica"
+							url={'/signed-in/contribuir?tipo=gramatica'}
 						/>
 						<Back />
 					</div>

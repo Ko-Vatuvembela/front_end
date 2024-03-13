@@ -10,16 +10,8 @@ import { OK, UNAUTHORIZED, signedURL } from '@/app/components/shared/resources';
 import { useRouter } from 'next/navigation';
 import { IsLogged } from '@/app/components/middleware/IsLogged';
 import { type ISingleQuote } from '../components/types';
-import { Roboto_Serif } from 'next/font/google';
 const fetchRequest = new FetchRequest();
 const session = new SessionProvider();
-
-const robotoSerif = Roboto_Serif({
-	style: ['normal', 'italic'],
-	weight: ['100', '500', '700'],
-	subsets: ['latin'],
-	display: 'swap',
-});
 
 export const IndexPage = () => {
 	const [email, updateEmail] = useState<string>();
@@ -70,7 +62,9 @@ export const IndexPage = () => {
 			<>
 				<div className="mx-auto">
 					<h1
-						className={`text-primaryBlue text-4xl my-8 font-normal text-center ${robotoSerif.className}`}
+						className={
+							'text-primaryBlue text-4xl my-8 font-normal text-center'
+						}
 					>
 						Um lugar para partilharmos conhecimentos e entendermos
 						melhor as nossas raízes.
@@ -144,7 +138,7 @@ export const IndexPage = () => {
 							/>
 						</p>
 					</section>
-					<div className={`block ${robotoSerif.className}`}>
+					<div className={'block'}>
 						<Image
 							alt="quote"
 							src="/images/quotes.svg"
