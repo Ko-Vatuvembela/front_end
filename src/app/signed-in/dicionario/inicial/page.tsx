@@ -75,16 +75,14 @@ export default function Inicial () {
 									dicionário.
 								</p>
 							) : (
-								listaPalavras.map(
-									({ id_palavra, palavra, lingua_fk }) => (
-										<div key={id_palavra}>
-											<TextLink
-												href={`palavra?IDPalavra=${id_palavra}&IDLingua=${lingua_fk}`}
-												text={palavra}
-											/>
-										</div>
-									)
-								)
+								listaPalavras.map(({ idPalavra }) => (
+									<div key={idPalavra.id_palavra}>
+										<TextLink
+											href={`palavra?IDPalavra=${idPalavra.id_palavra}&IDLingua=${idPalavra.lingua_fk}`}
+											text={idPalavra.palavra}
+										/>
+									</div>
+								))
 							)}
 						</div>
 						<Back />
