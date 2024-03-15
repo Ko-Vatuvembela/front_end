@@ -3,12 +3,16 @@
 import { AuthProvider } from '@/app/context/AuthProvider';
 import { LayoutPattern } from '@/app/public/LayoutPattern';
 import { LanguageProvider } from '@/app/context/LanguageContext';
-import { type ILanguage } from '@/app/components/types';
+import { type IPalavra, type ILanguage } from '@/app/components/types';
 import { useEffect, useState } from 'react';
 import { TextLink } from '@/app/components/shared/Link';
+import FetchRequest from '@/app/provider/api';
 import { Roboto } from 'next/font/google';
 import { Add } from '@/app/components/shared/Add';
 import { Back } from '@/app/components/shared/Back';
+import { InputText } from '@/app/components/shared/body/forms/InputText';
+
+const request = new FetchRequest();
 
 const letters = [
 	'A',
@@ -44,9 +48,20 @@ const roboto = Roboto({
 	subsets: ['latin'],
 	display: 'swap',
 });
-export default function Dicionario () {
+export default function Dicionario() {
 	const [langs, updateList] = useState<ILanguage[]>([]);
 	const [languageID, setLanguageID] = useState<string>('');
+	const [results, setResults] = useState<IPalavra[]>([]);
+
+	const searchWord = async (payload: string) => {
+		if (payload) {
+			const response = await request.get(`dictionary/search/${payload}`);
+			setResults((await response.json()).data as IPalavra[]);
+			console.log(results);
+		} else {
+			setResults([]);
+		}
+	};
 
 	useEffect(() => {
 		if (langs.length > 0) {
@@ -66,7 +81,41 @@ export default function Dicionario () {
 						<p className="text-3xl max-sm:text-center  my-8 max-md-text-center">
 							Faça alguma pesquisa no nosso dicionário
 						</p>
+						<div className="search my-2">
+							<InputText
+								label="Pesquise"
+								name="palavra"
+								placeholder="Ex. Muxima"
+								type="text"
+								isRequired={true}
+								onChange={(e) => {
+									searchWord(e.trim());
+								}}
+							/>
+							{results.length > 0 ? (
+								<div className="p-3 bg-gray-200 rounded-lg -mt-4 max-h-[5rem] overflow-scroll">
+									{results.map(
+										(
+											{ id_palavra, palavra, lingua_fk },
+											index
+										) => (
+											<section key={index}>
+												<TextLink
+													href={`dicionario/palavra?IDPalavra=${id_palavra}&IDLingua=${lingua_fk}`}
+													text={palavra}
+												/>
+											</section>
+										)
+									)}
+								</div>
+							) : (
+								<div></div>
+							)}
+						</div>
 						<div className="form">
+							<p className="text-3xl max-sm:text-center  my-8 max-md-text-center">
+								Ou navegue por ordem alfabética
+							</p>
 							<label
 								htmlFor="lingua"
 								className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -88,9 +137,6 @@ export default function Dicionario () {
 								))}
 								;
 							</select>
-							<p className="text-3xl max-sm:text-center  my-8 max-md-text-center">
-								Ou navegue por ordem alfabética
-							</p>
 							<section className="my-5 flex flex-wrap justify-center">
 								{letters.map((value, id) => (
 									<TextLink

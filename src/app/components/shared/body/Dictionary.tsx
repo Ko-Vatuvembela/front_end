@@ -35,6 +35,7 @@ export const Dictionary = () => {
 
 	const submit = async (e: FormEvent) => {
 		e.preventDefault();
+		const form = document.querySelector('form') as HTMLFormElement;
 
 		const data = {
 			palavra,
@@ -47,12 +48,15 @@ export const Dictionary = () => {
 		setHidding(false);
 		if (request) {
 			if (request.status === CREATED) {
-				setStyle(SUCCESS_STYLE);
 				setHidding(true);
-				setMensagem('Palavra inserida !!');
-				setTimeout(() => {
+				form.reset();
+				if (
+					!confirm(
+						'Palavra inserida com sucesso !! Clique OK para adicionar mais palavras ou Cancelar para voltar ao menu\n'
+					)
+				) {
 					router.back();
-				}, 3 * 1000);
+				}
 			} else if (request.status === UNPROCESSABLE_ENTITY) {
 				setMensagem('Erro : Insira correctamente os dados !!');
 				setStyle(ERROR_STYLE);
