@@ -48,7 +48,7 @@ const roboto = Roboto({
 	subsets: ['latin'],
 	display: 'swap',
 });
-export default function Dicionario() {
+export default function Dicionario () {
 	const [langs, updateList] = useState<ILanguage[]>([]);
 	const [languageID, setLanguageID] = useState<string>('');
 	const [results, setResults] = useState<IPalavra[]>([]);

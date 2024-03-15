@@ -7,7 +7,6 @@ import {
 	CLASSES_GRAMATICAIS,
 	CREATED,
 	ERROR_STYLE,
-	SUCCESS_STYLE,
 	UNPROCESSABLE_ENTITY,
 } from '../resources';
 import { type ILanguage } from '../../types';
