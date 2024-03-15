@@ -5,17 +5,17 @@ export const SelectBox = ({
 	values,
 	onChange,
 	titulo,
-	style = 'p-3 border rounded-lg w-[10rem]',
+	style = '',
 }: ISelectBox) => (
-	<>
-		<label className="my-1" htmlFor={name}>
+	<div className={style}>
+		<label className="my-1 text-primaryBlue" htmlFor={name}>
 			{titulo}
 		</label>
 		<br />
 		<select
 			name={name}
 			id={name}
-			className={style}
+			className={' p-3 border rounded-lg w-[10rem]'}
 			onChange={(e) => {
 				onChange(e.target.value);
 			}}
@@ -28,5 +28,5 @@ export const SelectBox = ({
 				);
 			})}
 		</select>
-	</>
+	</div>
 );

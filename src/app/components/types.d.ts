@@ -88,7 +88,7 @@ export interface ILanguage {
 }
 export interface IAdd {
 	url: string;
-	type: alternatives;
+	type: 'dicionario' | 'gramatica' | 'proverbio';
 }
 export interface ISelectBox {
 	values: string[];
@@ -225,4 +225,28 @@ export interface IDetailedQuote {
 export interface ISingleQuote {
 	proverbio: string;
 	lingua: string;
+}
+export interface IPalavra {
+	id_palavra: number;
+	palavra: string;
+	pronuncia: string;
+	lingua_fk: number;
+}
+export interface ISignificado {
+	id_significado: number;
+	significado: string;
+	exemplo: string;
+	classe_gramatical_fk: number;
+	utilizador_fk: number;
+	palavra_fk: number;
+	idPalavra: {
+		id_palavra: number;
+		palavra: string;
+		pronuncia: string;
+		lingua_fk: number;
+	};
+	idClasseGramatical: {
+		id_classe_gramatical: number;
+		classe_gramatical: string;
+	};
 }

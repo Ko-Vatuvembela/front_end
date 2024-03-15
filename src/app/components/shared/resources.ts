@@ -1,3 +1,4 @@
+'use client';
 import FetchRequest from '@/app/provider/api';
 import SessionProvider from '@/app/provider/session';
 const session = new SessionProvider();
@@ -71,10 +72,25 @@ export const CREATED = 201;
 export const INTERNAL_SERVER_ERROR = 500;
 export const NOT_FOUND = '/not-found';
 export const OK = 200;
+export const LOADING_IMAGE = '/images/loading.svg';
 export const UNPROCESSABLE_ENTITY = 422;
+export const ERROR_STYLE = 'text-red-500 font-bold';
+export const SUCCESS_STYLE = 'text-green-500 font-normal';
 export const niveis = ['Bacharelado/Licenciatura', 'Mestrado', 'Doutorado'];
 export const INTERNAL_SERVER_ERROR_PAGE = '/error/500';
 export const CATEGORIAS = ['Fonologia', 'Morfologia', 'Sintaxe'];
+export const CLASSES_GRAMATICAIS = [
+	'Adjetivo',
+	'Advérbio',
+	'Artigo',
+	'Conjunção',
+	'Interjeição',
+	'Numeral',
+	'Preposição',
+	'Pronome',
+	'Substantivo',
+	'Verbo',
+];
 
 export const styles = new Map<string, string>();
 styles.set('h2', 'text-4xl font-bold');

@@ -26,7 +26,6 @@ const robotoSerif = Roboto_Serif({
 export default function Proverbio () {
 	const id = Number(useSearchParams().get('id'));
 	const router = useRouter();
-
 	const [quote, setQuote] = useState<IDetailedQuote>();
 
 	useEffect(() => {
