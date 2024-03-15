@@ -14,6 +14,7 @@ import {
 	NOT_FOUND,
 	OK,
 	UNPROCESSABLE_ENTITY,
+	capitalize,
 } from '@/app/components/shared/resources';
 import { Back } from '@/app/components/shared/Back';
 import { Title } from '@/app/components/shared/Title';
@@ -80,7 +81,7 @@ export default function Inicial () {
 										<div key={id_palavra}>
 											<TextLink
 												href={`palavra?IDPalavra=${id_palavra}&IDLingua=${lingua_fk}`}
-												text={palavra}
+												text={capitalize(palavra)}
 											/>
 										</div>
 									)
