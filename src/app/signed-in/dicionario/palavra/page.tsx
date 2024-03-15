@@ -12,9 +12,9 @@ import {
 	NOT_FOUND,
 	OK,
 	UNPROCESSABLE_ENTITY,
+	capitalize,
 } from '@/app/components/shared/resources';
 import { Back } from '@/app/components/shared/Back';
-import { Title } from '@/app/components/shared/Title';
 import { Roboto_Serif } from 'next/font/google';
 
 const request = new FetchRequest();
@@ -29,6 +29,7 @@ export default function Palavra () {
 	const router = useRouter();
 	const [significados, setSignificados] = useState<ISignificado[]>([]);
 	const [palavra, setPalavra] = useState<string>('Carregando . . .');
+	const [pronuncia, setPronuncia] = useState<string>('...');
 	const languageID = Number(useSearchParams().get('IDLingua'));
 	const wordID = Number(useSearchParams().get('IDPalavra'));
 
@@ -49,6 +50,7 @@ export default function Palavra () {
 				}
 				setSignificados(result);
 				setPalavra(result[0].idPalavra.palavra);
+				setPronuncia(result[0].idPalavra.pronuncia);
 			} else if (req.status === UNPROCESSABLE_ENTITY) {
 				router.replace(NOT_FOUND);
 			} else {
@@ -61,7 +63,15 @@ export default function Palavra () {
 		<AuthProvider>
 			<LayoutPattern backgroundImage="knife">
 				<div className={robotoSerif.className + ' my-5'}>
-					<Title text={palavra} />
+					<section className="flex -mb-1">
+						<span className="text-[2rem] font-medium">
+							{capitalize(palavra)}
+						</span>
+						<span className="text-[1.8rem] ml-2 font-medium">
+							/{pronuncia}/
+						</span>
+					</section>
+					<hr />
 					<ul className="list-decimal">
 						{significados.map(
 							(

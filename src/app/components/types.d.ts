@@ -229,6 +229,7 @@ export interface ISingleQuote {
 export interface IPalavra {
 	id_palavra: number;
 	palavra: string;
+	pronuncia: string;
 	lingua_fk: number;
 }
 export interface ISignificado {
@@ -241,6 +242,7 @@ export interface ISignificado {
 	idPalavra: {
 		id_palavra: number;
 		palavra: string;
+		pronuncia: string;
 		lingua_fk: number;
 	};
 	idClasseGramatical: {

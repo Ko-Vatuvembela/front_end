@@ -24,6 +24,7 @@ export const Dictionary = () => {
 		CLASSES_GRAMATICAIS[0]
 	);
 	const [exemplo, updateExemplo] = useState<string>();
+	const [pronuncia, updatePronuncia] = useState<string>();
 	const [isHidden, setHidding] = useState<boolean>(true);
 	const [mensagem, setMensagem] = useState<string>('');
 	const [style, setStyle] = useState<string>('hidden');
@@ -41,6 +42,7 @@ export const Dictionary = () => {
 			significado,
 			classeGramatical,
 			exemplo,
+			pronuncia,
 			linguaFK: languagesIDHash?.get(selectedLanguage as string),
 		};
 		const request = await fetchRequest.post('dictionary', data);
@@ -86,15 +88,23 @@ export const Dictionary = () => {
 							isRequired={true}
 							label="Palavra em língua Nacional"
 							name="palavra"
-							placeholder="Muxima"
+							placeholder="Ciwa"
 							type="text"
 							onChange={updatePalavra}
 						/>
 						<InputText
 							isRequired={true}
+							label="Como se pronuncia esta palavra ?"
+							name="pronuncia"
+							placeholder="Tchíwa"
+							type="text"
+							onChange={updatePronuncia}
+						/>
+						<InputText
+							isRequired={true}
 							label="Significado em português"
 							name="significado"
-							placeholder="Coração"
+							placeholder="Bem"
 							type="text"
 							onChange={updateSignificado}
 						/>
@@ -102,7 +112,7 @@ export const Dictionary = () => {
 							isRequired={true}
 							label="Exemplo"
 							name="exemplo"
-							placeholder="Muxima uteketa. Wevu?"
+							placeholder="Okusukula ciwa ovilya."
 							type="text"
 							onChange={updateExemplo}
 						/>
