@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import {
 	INTERNAL_SERVER_ERROR_PAGE,
+	LOADING_STRING,
 	NOT_FOUND,
 	OK,
 	UNPROCESSABLE_ENTITY,
@@ -25,10 +26,10 @@ const robotoSerif = Roboto_Serif({
 	display: 'swap',
 });
 
-export default function Palavra () {
+export default function Palavra() {
 	const router = useRouter();
 	const [significados, setSignificados] = useState<ISignificado[]>([]);
-	const [palavra, setPalavra] = useState<string>('Carregando . . .');
+	const [palavra, setPalavra] = useState<string>(LOADING_STRING);
 	const [pronuncia, setPronuncia] = useState<string>('...');
 	const languageID = Number(useSearchParams().get('IDLingua'));
 	const wordID = Number(useSearchParams().get('IDPalavra'));
@@ -67,7 +68,7 @@ export default function Palavra () {
 						<span className="text-[2rem] font-medium">
 							{capitalize(palavra)}
 						</span>
-						<span className="text-[1.8rem] ml-2 font-medium">
+						<span className="text-[1.8rem] ml-2 font-medium text-primaryBlue">
 							/{pronuncia}/
 						</span>
 					</section>
