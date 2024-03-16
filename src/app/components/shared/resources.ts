@@ -21,10 +21,10 @@ export const getUploadHeaders = (): Headers => {
 	}
 	return headers;
 };
-export function capitalize (e: string) {
+export function capitalize(e: string) {
 	return e.charAt(0).toUpperCase() + e.slice(1).toLowerCase();
 }
-export function filterNumbers (e: string): string {
+export function filterNumbers(e: string): string {
 	let ret = '';
 	for (const a of e) {
 		const tmp = Number(a);
@@ -66,6 +66,7 @@ export const categorias = [
 ];
 
 export const ALL_LANGUAGES = 200;
+export const LOADING_STRING = 'A carregar';
 export const UNAUTHORIZED = 401;
 export const CONFLICT = 409;
 export const CREATED = 201;

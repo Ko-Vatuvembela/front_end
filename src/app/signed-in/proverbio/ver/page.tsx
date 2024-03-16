@@ -9,6 +9,7 @@ import { Title } from '@/app/components/shared/Title';
 import { type IDetailedQuote } from '@/app/components/types';
 import {
 	INTERNAL_SERVER_ERROR_PAGE,
+	LOADING_STRING,
 	NOT_FOUND,
 	OK,
 	UNAUTHORIZED,
@@ -23,9 +24,10 @@ const robotoSerif = Roboto_Serif({
 	subsets: ['latin'],
 	display: 'swap',
 });
-export default function Proverbio () {
+export default function Proverbio() {
 	const id = Number(useSearchParams().get('id'));
 	const router = useRouter();
+	const [titulo, setTitulo] = useState<string>(LOADING_STRING);
 	const [quote, setQuote] = useState<IDetailedQuote>();
 
 	useEffect(() => {
@@ -42,6 +44,7 @@ export default function Proverbio () {
 				} else if (req.status === OK) {
 					const list = (await req.json()) as IDetailedQuote;
 					setQuote(list);
+					setTitulo(`Provérbio em ${list?.lingua}`);
 				} else {
 					router.replace(NOT_FOUND);
 				}
@@ -53,7 +56,7 @@ export default function Proverbio () {
 	return (
 		<AuthProvider>
 			<LayoutPattern backgroundImage="earrings">
-				<Title text={`Provérbio em ${quote?.lingua}`} />
+				<Title text={titulo} />
 				<p
 					className={`italic text-justify my-2 text-md ${robotoSerif.className} text-gray-950`}
 				>
