@@ -26,7 +26,7 @@ const robotoSerif = Roboto_Serif({
 	display: 'swap',
 });
 
-export default function Palavra() {
+export default function Palavra () {
 	const router = useRouter();
 	const [significados, setSignificados] = useState<ISignificado[]>([]);
 	const [palavra, setPalavra] = useState<string>(LOADING_STRING);
