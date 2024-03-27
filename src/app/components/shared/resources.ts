@@ -102,3 +102,4 @@ styles.set('ul', 'list-disc');
 styles.set('blockquote', 'italic');
 
 export const DEFAULT_IMAGE = '/images/default.svg';
+export const MAX_ELEMENTS_PER_PAGE = 10;

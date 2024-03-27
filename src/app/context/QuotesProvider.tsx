@@ -16,14 +16,15 @@ const session = new SessionProvider();
 export const QuotesProvider = ({
 	children,
 	quotes,
-	// filteredQuotes,
+	setPages,
 	filterQuotes,
 	setQuotes,
 }: {
 	setQuotes: (e: IQuote[]) => void
+	setPages: (e: number[]) => void
 	filterQuotes?: (e: IQuote[]) => void
+	pages: number[]
 	quotes: IQuote[]
-	// filteredQuotes?: IQuote[];
 	children: React.ReactNode
 }) => {
 	const router = useRouter();
@@ -31,16 +32,21 @@ export const QuotesProvider = ({
 	useEffect(() => {
 		(async () => {
 			try {
-				const reqQuotes = await request.get('quotes');
-
+				const reqQuotes = await request.get('quotes/page/1');
 				if (reqQuotes.status === UNAUTHORIZED) {
 					session.deleteSession();
 					router.replace('/');
 				} else if (reqQuotes.status === OK) {
-					const quotesList = (await reqQuotes.json()) as IQuote[];
-					setQuotes(quotesList);
+					const quotesList = await reqQuotes.json();
+					setQuotes(quotesList.data as IQuote[]);
+					const arr: number[] = [];
+					const maxElements = quotesList.meta.total as number;
+					for (let i = 1; i <= maxElements; i++) {
+						arr.push(i);
+					}
+					setPages(arr);
 					if (filterQuotes) {
-						filterQuotes(quotesList);
+						filterQuotes(quotesList.data);
 					}
 				}
 			} catch (e) {
