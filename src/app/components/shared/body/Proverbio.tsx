@@ -24,23 +24,25 @@ const robotoSerif = Roboto_Serif({
 const request = new FetchRequest();
 
 export const Proverbios = () => {
-	const all: ILanguage = { id: 200, lingua: 'Todas' };
 	const [languageList, setLanguageList] = useState<ILanguage[]>([]);
+	const [languageID, setLanguageID] = useState<number>(0);
 	const [pages, setPages] = useState<number[]>([]);
 	const [selectedPage, selectPage] = useState<number>(1);
 	const [quotes, setQuotes] = useState<IQuote[]>([]);
-	const [filteredQuotes, filterQuotes] = useState<IQuote[]>([]);
+	const all: ILanguage = { id: languageID, lingua: 'Todas' };
 	const [language, setLanguage] = useState<ILanguage>(all);
+
 	const router = useRouter();
 
 	const getQuotes = async (page: number) => {
 		try {
-			const reqQuotes = await request.get(`quotes/page/${page}`);
+			const reqQuotes = await request.get(
+				`quotes/page/${languageID}/${page}`
+			);
 			if (reqQuotes.status === OK) {
 				const quotesList = await reqQuotes.json();
 				const allQuotes = quotesList.data as IQuote[];
 				setQuotes(allQuotes);
-				filterQuotes(allQuotes);
 				const arr: number[] = [];
 				const total = quotesList.meta.total as number;
 				const maxElements =
@@ -50,6 +52,7 @@ export const Proverbios = () => {
 					arr.push(i);
 				}
 				setPages(arr);
+				// alert(`OK ${languageID}`);
 			}
 		} catch (e) {
 			router.replace(INTERNAL_SERVER_ERROR_PAGE);
@@ -60,7 +63,7 @@ export const Proverbios = () => {
 		(async () => {
 			await getQuotes(selectedPage);
 		})();
-	}, []);
+	}, [quotes]);
 
 	const aditional =
 		language.id === all.id
@@ -87,14 +90,10 @@ export const Proverbios = () => {
 										id={`checkbox${index}`}
 										value={lingua}
 										className="mr-2 checkbox"
-										onClick={() => {
+										onChange={(e) => {
+											selectPage(1);
 											setLanguage({ id, lingua });
-											filterQuotes(
-												quotes.filter(
-													({ lingua_fk }) =>
-														lingua_fk === id
-												)
-											);
+											setLanguageID(id);
 										}}
 									/>
 									<label
@@ -112,14 +111,14 @@ export const Proverbios = () => {
 								value="Limpar"
 								onClick={() => {
 									setLanguage(all);
-									filterQuotes(quotes);
+									setLanguageID(0);
 								}}
 							/>
 						</section>
 
 						<section className="proverbios text-justify">
-							{filteredQuotes.length ? (
-								filteredQuotes.map(
+							{quotes.length ? (
+								quotes.map(
 									({ proverbio, id_proverbio }, index) => {
 										const LIMIT = 50;
 										const tmp = decode(proverbio);
